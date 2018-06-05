@@ -64,3 +64,11 @@ CREATE TABLE "auth_cas"(
     "renew" CHAR(1)
 );
 success!
+timestamp: 2018-06-05T14:12:19.183552
+CREATE TABLE "images"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "created_on" TIMESTAMP,
+    "image_url" CHAR(512),
+    "price" DOUBLE
+);
+success!

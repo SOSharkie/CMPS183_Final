@@ -46,7 +46,7 @@
         	<div class="card homepage_card">
 			      <div>
 			        <div class="blue padded rounded">
-			          We have the boards!
+			          We love boards!
 			          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
 			        </div>
 			        <div class="navy padded rounded">
@@ -60,9 +60,28 @@
 
   		<!-- ******************************************* Database Page ******************************************* -->
   		<div v-if="page == 'database'">
-  			<h2> Database </h2>
-  		</div>
+			<h2> Our Surfboard Collection </h2>
 
+			<!-- Code to display the images -->
+            <div class="image_container threequarters">
+			  	<ul class="container">
+				  	<li class="card lifted padded quarter">
+						<img src="https://s19.postimg.cc/tk57had77/surfboard1.png" class="padded"></img>
+					  </li>
+					  <li class="card lifted padded quarter">
+						<img src="https://s19.postimg.cc/w40ubg5wz/surfboard2.jpg" class="padded"></img>
+					  </li>
+					  <li class="card lifted padded quarter">
+						<img src="https://s19.postimg.cc/mjh7ol3qb/surfboard3.jpg" class="padded"></img>
+					  </li>
+					  <li class="card lifted padded quarter">
+						<img src="https://s19.postimg.cc/3r5cl0mrn/surfboard4.png" class="padded"></img>
+				  	</li>
+			  	</ul>
+			</div>
+			 
+  		</div>
+		
   		<!-- **************************************** Customization Page **************************************** -->
   		<div v-if="page == 'customization'">
   			<h2> Customization </h2>
