@@ -13,14 +13,21 @@ var app = function() {
         }
     };
 
+    self.change_page = function(new_page) {
+        console.log(new_page);
+        self.vue.page = new_page;
+    }
+
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
+            page: 'homepage',
         },
         methods: {
+            change_page: self.change_page,
         }
 
     });
