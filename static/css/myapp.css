@@ -10,6 +10,7 @@
 
 /*************************************** Homepage ***************************************/
 .homepage_title {
+	margin-top: 20px !important;
 	color: white;
 }
 
@@ -25,13 +26,30 @@
 .homepage_card {
 	width: 400px; 
 	height: 200px;
+	margin-top: 10px;
 	margin-left: 15px;
+	margin-right: 35px;
 }
+
 
 .homepage_board_image {
 	width: 420px;
 	height: 140px;
 	margin-top: 10px;
+}
+
+/*************************************** Customization ***************************************/
+
+.custom_label {
+	width: 130px;
+}
+
+.custom_div {
+	margin-bottom: 10px;
+}
+
+.custom_selection {
+	border: 1px solid black !important;
 }
 
 /*************************************** Random ***************************************/

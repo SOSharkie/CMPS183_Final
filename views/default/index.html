@@ -41,20 +41,71 @@
 
   		<!-- ********************************************* Homepage ********************************************* -->
   		<div v-if="page == 'homepage'">
-  			<div class="fill center homepage_background">
+  			<div class="fill center homepage_background ">
+
         	<h1 class="homepage_title">Boardophiles</h1>
-        	<div class="card homepage_card">
-			      <div>
-			        <div class="blue padded rounded">
-			          We have the boards!
-			          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
-			        </div>
-			        <div class="navy padded rounded">
-			          High Performance and customizable! 
-			          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
-			        </div>
-			      </div>
-			    </div>
+        	<h4 class="homepage_title"> Customizable Surfboard Shop</h4>
+
+        	<div class="container">
+
+	        	<div class="card homepage_card left third">
+				      <div>
+				        <div class="blue padded rounded">
+				          We have the boards!
+				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
+				        </div>
+				        <div class="navy padded rounded">
+				          High Performance and stylish! 
+				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
+				        </div>
+				      </div>
+				    </div>
+
+				    <div class="card homepage_card right third">
+				      <div>
+				        <div class="blue padded rounded">
+				          Search our database presets...
+				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
+				        </div>
+				        <div class="navy padded rounded">
+				          Or create your own custom board! 
+				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
+				        </div>
+				      </div>
+				    </div>
+
+				  </div>
+
+				  <div class="container">
+
+	        	<div class="card homepage_card left third">
+				      <div>
+				        <div class="teal padded rounded">
+				          Unbeatable prices!
+				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
+				        </div>
+				        <div class="aqua padded rounded">
+				          Easy online payments! 
+				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
+				        </div>
+				      </div>
+				    </div>
+
+				    <div class="card homepage_card right third">
+				      <div>
+				        <div class="teal padded rounded">
+				          Recommended by pro surfers!
+				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
+				        </div>
+				        <div class="aqua padded rounded">
+				          Including Aaron Justesen! 
+				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
+				        </div>
+				      </div>
+				    </div>
+
+				  </div>
+
       	</div>
   		</div>
 
@@ -66,6 +117,85 @@
   		<!-- **************************************** Customization Page **************************************** -->
   		<div v-if="page == 'customization'">
   			<h2> Customization </h2>
+
+  			<div class="container custom_div">
+		      <label class="quarter left custom_label">Board Type</label>
+		      <div class="quarter">
+		        <select class="fill custom_selection">
+		          <option>Shortboard $200</option>
+		          <option>Hybrid $250</option>
+		          <option>Longboard $300</option>
+		        </select>
+		      </div>
+		    </div>
+
+				<div class="container custom_div">
+		      <label class="quarter left custom_label">Tail Type</label>
+		      <div class="quarter">
+		        <select class="fill custom_selection">
+		          <option>Square</option>
+		          <option>Pin</option>
+		          <option>Swallow</option>
+		          <option>Diamond</option>
+		        </select>
+		      </div>
+		    </div>
+
+		    <div class="container custom_div">
+		      <label class="quarter left custom_label">Color</label>
+		      <div class="quarter">
+		        <select class="fill custom_selection">
+		        	<option>White</option>
+		        	<option>Grey</option>
+		        	<option>Black</option>
+		          <option>Red</option>
+		          <option>Orange</option>
+		          <option>Yellow</option>
+		          <option>Green</option>
+		          <option>Blue</option>
+		          <option>Purple</option>
+		        </select>
+		      </div>
+		    </div>
+
+		    <div class="container custom_div">
+		      <label class="quarter left custom_label">Fin Number</label>
+		      <div class="quarter">
+		        <input min="1" max="4" step="1" placeholder="3" type="number" class="custom_selection">
+		      </div>
+		    </div>
+
+		    <div class="container custom_div">
+		      <label class="quarter left custom_label">Height (ft)</label>
+		      <div class="quarter">
+		        <input min="4" max="20" step=".1" placeholder="6" type="number" class="custom_selection">
+		      </div>
+		    </div>
+
+		    <div class="container custom_div">
+		      <label class="quarter left custom_label">Width (in)</label>
+		      <div class="quarter">
+		        <input min="10" max="40" step=".1" placeholder="19" type="number" class="custom_selection">
+		      </div>
+		    </div>
+
+		    <div class="container custom_div">
+		      <label class="quarter left custom_label">Thicness (in)</label>
+		      <div class="quarter">
+		        <input min="0" max="3" step=".1" placeholder="2.5" type="number" class="custom_selection">
+		      </div>
+		    </div>
+
+		    <div class="container custom_div">
+		      <label class="quarter left custom_label">Volume (L)</label>
+		      <div class="quarter">
+		        <input min="10" max="50" step=".1" placeholder="30" type="number" class="custom_selection">
+		      </div>
+		    </div>
+
+		    <span>Board Price: $300</span>
+		    <button> Save Board</button>
+
   		</div>
 
   		<!-- ******************************************** About Page ******************************************** -->
