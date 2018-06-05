@@ -62,22 +62,58 @@
   		<div v-if="page == 'database'">
 			<h2> Our Surfboard Collection </h2>
 
-			<!-- Code to display the images -->
-            <div class="image_container threequarters">
-			  	<ul class="container">
-				  	<li class="card lifted padded quarter">
-						<img src="https://s19.postimg.cc/tk57had77/surfboard1.png" class="padded"></img>
-					  </li>
-					  <li class="card lifted padded quarter">
-						<img src="https://s19.postimg.cc/w40ubg5wz/surfboard2.jpg" class="padded"></img>
-					  </li>
-					  <li class="card lifted padded quarter">
-						<img src="https://s19.postimg.cc/mjh7ol3qb/surfboard3.jpg" class="padded"></img>
-					  </li>
-					  <li class="card lifted padded quarter">
-						<img src="https://s19.postimg.cc/3r5cl0mrn/surfboard4.png" class="padded"></img>
-				  	</li>
-			  	</ul>
+			<div class="container">
+
+
+				<div class="quarter">
+					<ul class="menu">
+						<li><a class="btn">Filter by ▼</a>
+							<ul>
+								<li><a>Price</a>
+									<ul>
+										<li><a><100</a></li>
+										<li><a>100-400</a></li>
+										<li><a>>500</a></li>
+									</ul>
+								</li>
+								<li><a>Board Type</a>
+									<ul>
+										<li><a>Longboard</a></li>
+										<li><a>Shortboard</a></li>
+										<li><a>Hybrid</a></li>
+									</ul>
+								</li>
+								<li><a>Fins</a>
+									<ul>
+										<li><a>One</a></li>
+										<li><a>Two</a></li>
+										<li><a>Three</a></li>
+										<li><a>Four</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Code to display the images -->
+				<div class="image_container threequarters">
+					<ul class="container">
+						<li class="card lifted padded quarter">
+							<img src="https://s19.postimg.cc/tk57had77/surfboard1.png" class="padded"></img>
+						</li>
+						<li class="card lifted padded quarter">
+							<img src="https://s19.postimg.cc/w40ubg5wz/surfboard2.jpg" class="padded"></img>
+						</li>
+						<li class="card lifted padded quarter">
+							<img src="https://s19.postimg.cc/mjh7ol3qb/surfboard3.jpg" class="padded"></img>
+						</li>
+						<li class="card lifted padded quarter">
+							<img src="https://s19.postimg.cc/3r5cl0mrn/surfboard4.png" class="padded"></img>
+						</li>
+					</ul>
+				</div>
+
 			</div>
 			 
   		</div>

@@ -72,3 +72,34 @@ CREATE TABLE "images"(
     "price" DOUBLE
 );
 success!
+timestamp: 2018-06-05T16:00:58.132603
+ALTER TABLE "images" ADD "weight" CHAR(512);
+timestamp: 2018-06-05T16:00:58.135280
+ALTER TABLE "images" ADD "color" CHAR(512);
+timestamp: 2018-06-05T16:00:58.141169
+ALTER TABLE "images" ADD "fin_number" CHAR(512);
+timestamp: 2018-06-05T16:00:58.142847
+ALTER TABLE "images" ADD "tail_type" CHAR(512);
+timestamp: 2018-06-05T16:00:58.144655
+ALTER TABLE "images" ADD "height" CHAR(512);
+timestamp: 2018-06-05T16:00:58.146037
+ALTER TABLE "images" ADD "width" CHAR(512);
+timestamp: 2018-06-05T16:00:58.160553
+ALTER TABLE "images" ADD "surfboard_type" CHAR(512);
+success!
+timestamp: 2018-06-05T16:19:39.372747
+CREATE TABLE "boards"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "created_on" TIMESTAMP,
+    "image_url" CHAR(512),
+    "board_price" DOUBLE,
+    "board_type" CHAR(512),
+    "board_tail_type" CHAR(512),
+    "num_of_fins" CHAR(512),
+    "board_color" CHAR(512),
+    "board_length" CHAR(512),
+    "board_width" CHAR(512),
+    "board_thickness" CHAR(512),
+    "board_volume" CHAR(512)
+);
+success!
