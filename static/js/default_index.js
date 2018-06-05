@@ -6,7 +6,6 @@ var app = function() {
 
     Vue.config.silent = false; // show all warnings
 
-    // Extends an array
     self.extend = function(a, b) {
         for (var i = 0; i < b.length; i++) {
             a.push(b[i]);
@@ -18,7 +17,6 @@ var app = function() {
         self.vue.page = new_page;
     }
 
-    // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],

@@ -1,4 +1,47 @@
 /* line 1, ../sass/_main.scss */
+
+/***************************************** Menu *****************************************/
+.main_menu {
+	width: 95% !important;
+	height: 30px !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+/*************************************** Homepage ***************************************/
+.homepage_title {
+	color: white;
+}
+
+.homepage_background {
+	height: 600px;
+	background:url(../images/wave2.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position:center;
+	padding-top:5px;
+}
+
+.homepage_card {
+	width: 400px; 
+	height: 200px;
+	margin-left: 15px;
+}
+
+.homepage_board_image {
+	width: 420px;
+	height: 140px;
+	margin-top: 10px;
+}
+
+/*************************************** Random ***************************************/
+#vue-div {
+}
+
+.padded {
+	padding-right: 40px !important;
+}
+
 .colorful {
-  color: #bb8833;
+ 	color: #bb8833;
 }

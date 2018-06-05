@@ -14,24 +14,48 @@
   	<div class="container padded">
 
   		<!-- ************************************************ Menu ************************************************ -->
-  		<ul class="menu">
-  			<li>
-  				<button v-on:click="change_page('homepage')"> Homepage </button>
-  			</li>
-  			<li>
-  				<button v-on:click="change_page('database')"> Database </button>
-  			</li>
-  			<li>
-  				<button v-on:click="change_page('customization')"> Customization </button>
-  			</li>
-  			<li>
-  				<button v-on:click="change_page('about')"> About </button>
-  			</li>
-  		</ul>
+  		<div class="main_menu">
+	  		<ul class="menu">
+	  			<li>
+	  				<a v-on:click="change_page('homepage')"> Homepage </a>
+	  			</li>
+	  			<li>
+	  				<a v-on:click="change_page('database')"> Database </a>
+	  			</li>
+	  			<li>
+	  				<a v-on:click="change_page('customization')"> Customization </a>
+	  			</li>
+	  			<li>
+	  				<a v-on:click="change_page('about')"> About </a>
+	  			</li>
+	  		</ul>
+
+	  		<ul class="menu right">
+	  			<li>
+	  				<button v-on:click="change_page('cart')"> 
+	             Cart <i class="fa fa-shopping-cart"></i> 
+	          </button>
+	  			</li>
+	  		</ul>
+  		</div>
 
   		<!-- ********************************************* Homepage ********************************************* -->
   		<div v-if="page == 'homepage'">
-  			<h2> Homepage </h2>
+  			<div class="fill center homepage_background">
+        	<h1 class="homepage_title">Boardophiles</h1>
+        	<div class="card homepage_card">
+			      <div>
+			        <div class="blue padded rounded">
+			          We have the boards!
+			          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
+			        </div>
+			        <div class="navy padded rounded">
+			          High Performance and customizable! 
+			          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
+			        </div>
+			      </div>
+			    </div>
+      	</div>
   		</div>
 
   		<!-- ******************************************* Database Page ******************************************* -->
@@ -47,6 +71,11 @@
   		<!-- ******************************************** About Page ******************************************** -->
   		<div v-if="page == 'about'">
   			<h2> About </h2>
+  		</div>
+
+  		<!-- ******************************************** Cart Page ******************************************** -->
+  		<div v-if="page == 'cart'">
+  			<h2> Cart </h2>
   		</div>
 
 		</div>
