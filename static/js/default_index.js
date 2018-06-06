@@ -14,10 +14,14 @@ var app = function() {
 
     self.get_boards = function(){
         $.get(get_boards_url,
-            {}, function(data)
+            {
+                min: self.vue.min_price,
+                max: self.vue.max_price,
+                board_type: self.vue.board_type_filter,
+            }, function(data)
             {
                 self.vue.boards = data.boards;
-                //console.log(self.vue.boards);
+                console.log(self.vue.boards);
             });
     }
 
@@ -43,9 +47,23 @@ var app = function() {
             function(data)
             { 
                 self.vue.boards.push(data.boards);
-                console.log(self.vue.boards);
+                //console.log(self.vue.boards);
             }
         );
+    }
+
+    self.set_price_filter = function(min, max){
+        self.vue.min_price = min;
+        self.vue.max_price = max;
+        //console.log(self.vue.min_price);
+        //console.log(self.vue.max_price);
+        self.get_boards();
+    }
+
+    self.set_board_type_filter = function(board_type){
+        self.vue.board_type_filter = board_type;
+        console.log(self.vue.board_type_filter);
+        self.get_boards();
     }
 
     self.vue = new Vue({
@@ -58,7 +76,7 @@ var app = function() {
             boards: [],
 
             // Customization options
-            board_price: 0,
+            board_price: 500,
             board_type: 'Shortboard',
             board_tail_type: 'Square',
             num_of_fins: 3,
@@ -67,12 +85,16 @@ var app = function() {
             board_width: 19,
             board_thickness: 2.5,
             board_volume: 30,
-
+            min_price: 0,
+            max_price: 2500,
+            board_type_filter: 'All',
         },
         methods: {
             get_boards: self.get_boards,
             change_page: self.change_page,
             add_board: self.add_board,
+            set_price_filter: self.set_price_filter,
+            set_board_type_filter: self.set_board_type_filter,
         }
 
     });

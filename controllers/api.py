@@ -1,6 +1,10 @@
 def get_boards():
     boards = []
-    rows = db().select(db.boards.ALL)
+    #rows = db().select(db.boards.ALL)
+    if request.vars.board_type != 'All':
+        rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max) & (db.boards.board_type == request.vars.board_type)).select()
+    else:
+        rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max)).select()
     for r in rows:
         board = dict(
             id = r.id,
