@@ -31,7 +31,6 @@
 	margin-right: 35px;
 }
 
-
 .homepage_board_image {
 	width: 420px;
 	height: 140px;
@@ -40,17 +39,45 @@
 
 /***************************************** Database ******************************************/
 
+.filter_container {
+	float: left;
+	width: 190px;
+}
+
 .filter {
 	margin-right: 100px;
-	margin-left: 20px;
 	padding-right: 20px;
 	padding-left: 20px;
 }
+
+.active_filters {
+	padding-top: 50px;
+}
+
+.image_container {
+	border: 2px outset gray !important;
+	border-radius: 5px;
+	padding: 10px !important;
+	background-color: lightgray;
+}
+
 .board_price {
 	margin-left: 20px !important;
 	margin-right: 5px !important;
 	width: 100px !important;
 }
+
+.database_card {
+	width: 210px !important; 
+	height: 290px !important;
+	margin-right: 10px !important;
+}
+
+
+.database_board_image {
+
+}
+
 /*************************************** Customization ***************************************/
 
 .custom_label {
@@ -65,22 +92,26 @@
 	border: 1px solid black !important;
 }
 
-/*************************************** Random ***************************************/
-#vue-div {
+.save_bar {
+	margin-top: 5px;
+	width: 240px !important;
 }
 
-.padded {
-	padding-right: 40px !important;
+/*************************************** Random ***************************************/
+
+h2 {
+	margin-top: 10px;
 }
+
 
 .colorful {
  	color: #bb8833;
 }
 
-.rotate90 {
+/*.rotate90 {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
-}
+}*/

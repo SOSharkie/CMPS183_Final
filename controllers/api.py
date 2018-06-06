@@ -51,3 +51,8 @@ def add_board():
         board_thickness=s.board_thickness,
         board_volume=s.board_volume
     )))
+
+def delete_board():
+	"Deletes a board from the table"
+	db(db.boards.id == request.vars.board_id).delete()
+	return "ok"

@@ -31,6 +31,7 @@ var app = function() {
     };
 
     self.add_board = function () {
+        self.vue.saving_board = true;
         $.post(add_board_url,
             {
                 image_url: "../static/images/stock_board1.jpg",
@@ -45,10 +46,24 @@ var app = function() {
                 board_volume: self.vue.board_volume,
 
             },
-            function(data)
-            { 
+            function(data) { 
                 self.vue.boards.push(data.boards);
-                //console.log(self.vue.boards);
+                setTimeout(function() {
+                    self.vue.saving_board = false;
+                    self.vue.just_added_board = true;
+                    setTimeout(function() {
+                        self.vue.just_added_board = false;
+                    }, 5000)
+                }, 2000);
+            }
+        );
+    };
+
+    self.delete_board = function(board_idx) {
+        $.post(delete_board_url,
+            { board_id: self.vue.boards[board_idx].id },
+            function () {
+                self.vue.boards.splice(board_idx, 1);
             }
         );
     };
@@ -129,11 +144,14 @@ var app = function() {
             min_price: 0,
             max_price: 2500,
             board_type_filter: 'All',
+            saving_board: false,
+            just_added_board: false,
         },
         methods: {
             get_boards: self.get_boards,
             change_page: self.change_page,
             add_board: self.add_board,
+            delete_board: self.delete_board,
             update_board_options: self.update_board_options,
             set_price_filter: self.set_price_filter,
             set_board_type_filter: self.set_board_type_filter,

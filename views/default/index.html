@@ -5,6 +5,7 @@
 <script>
 	var add_board_url = "{{=URL('api', 'add_board', user_signature=True)}}";
 	var get_boards_url = "{{=URL('api', 'get_boards', user_signature=True)}}";
+	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -112,12 +113,15 @@
 
   		<!-- ******************************************* Database Page ******************************************* -->
   		<div v-if="page == 'database'">
-			<h2> Our Surfboard Collection </h2>
+			<h2> Surfboard Collection </h2>
 
 			<div class="container">
 
+				<div class="filter_container">
 
-				<div>
+					<!-- button to delete the last board in the array -->
+					<!-- <button v-on:click="delete_board(boards.length-1)"> Delete </button> -->
+
 					<ul class="menu">
 						<li><h2 class="btn rounded filter">Filter</h2>
 							<ul>
@@ -140,38 +144,32 @@
 							</ul>
 						</li>
 					</ul>
+					<div class="active_filters">
+						<h5>Active Filters:</h5>
+						<p>Price: $${min_price} to $${max_price}</p>
+						<p>Type: ${board_type_filter}</p>
+					</div>
 				</div>
 
 				<!-- Code to display the images -->
 				<div class="image_container threequarters">
 					<ul class="container">
-						<!-- <li class="card lifted padded quarter">
-							<img src="https://s19.postimg.cc/tk57had77/surfboard1.png" class="padded"></img>
-						</li>
-						<li class="card lifted padded quarter">
-							<img src="https://s19.postimg.cc/w40ubg5wz/surfboard2.jpg" class="padded"></img>
-						</li>
-						<li class="card lifted padded quarter">
-							<img src="https://s19.postimg.cc/mjh7ol3qb/surfboard3.jpg" class="padded"></img>
-						</li>
-						<li class="card lifted padded quarter">
-							<img src="https://s19.postimg.cc/3r5cl0mrn/surfboard4.png" class="padded"></img>
-						</li> -->
-						<li v-for="board in boards" class="card lifted padded quarter">
+						<li v-for="board in boards" class="card database_card lifted padded quarter rounded">
 							<div>
 								<!-- The front of the surfboard displays -->
-								<div>
-									<img v-bind:src="board.image_url" height="150px" width="300px" class="padded rotate90"></img>
+								<div class="blue">
+									<img v-bind:src="board.image_url" class="padded database_board_image"></img>
 									<span class="board_price"> $${board.board_price} </span>
 								</div>
 
 								<!-- The back of the surfboard displays -->
-								<div>
+								<div class="navy">
 									<p>The back of the board!</p>
 								</div>
 							</div>
 						</li>
 					</ul>
+					<h2 v-if="boards.length == 0"> No boards available </h2>
 				</div>
 
 			</div>
@@ -263,15 +261,19 @@
 		    </div>
 
 		    <span>Board Price: $${board_price} </span>
-		    <button v-on:click="add_board()"> Save Board </button>
+		    <button v-if="!saving_board" v-on:click="add_board()"> Save Board </button>
+		    <button v-if="saving_board"> Saving Board...</button>
+		    <div v-if="saving_board" class="progress fill save_bar"><div class="indeterminate"></div></div>
+		    <h5 v-if="just_added_board"> Board Saved!</h5>
 
   		</div>
 
   		<!-- ******************************************** About Page ******************************************** -->
   		<div v-if="page == 'about'">
   			<h2> About </h2>
-  			<p> This website was created for the University of California CMPS183 final.</p>
+  			<p> This website was created for the University of California CMPS 183 final.</p>
   			<p> By Sean Odnert and Mark Hiserodt.</p>
+  			<p> With help from Aaron Justesen</p>
   		</div>
 
   		<!-- ******************************************** Cart Page ******************************************** -->
