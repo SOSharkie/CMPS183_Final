@@ -174,7 +174,7 @@
   			<div class="container custom_div">
 		      <label class="quarter left custom_label">Board Type</label>
 		      <div class="quarter">
-		        <select class="fill custom_selection" v-model="board_type">
+		        <select class="fill custom_selection" v-model="board_type" v-on:change="update_board_options()">
 		          <option>Shortboard</option>
 		          <option>Hybrid</option>
 		          <option>Longboard</option>
@@ -185,7 +185,7 @@
 				<div class="container custom_div">
 		      <label class="quarter left custom_label">Tail Type</label>
 		      <div class="quarter">
-		        <select class="fill custom_selection" v-model="board_tail_type">
+		        <select class="fill custom_selection" v-model="board_tail_type" v-on:change="update_board_options()">
 		          <option>Square</option>
 		          <option>Pin</option>
 		          <option>Swallow</option>
@@ -197,7 +197,7 @@
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Color</label>
 		      <div class="quarter">
-		        <select class="fill custom_selection" v-model="board_color">
+		        <select class="fill custom_selection" v-model="board_color" v-on:change="update_board_options()">
 		        	<option>White</option>
 		        	<option>Grey</option>
 		        	<option>Black</option>
@@ -214,39 +214,44 @@
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Fin Number</label>
 		      <div class="quarter">
-		        <input min="1" max="4" step="1" v-model="num_of_fins" type="number" class="custom_selection">
+		        <input min="1" max="4" step="1" v-model="num_of_fins" type="number" class="custom_selection" 
+		        v-on:change="update_board_options()">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Length (ft)</label>
 		      <div class="quarter">
-		        <input min="4" max="20" step=".1" v-model="board_length" type="number" class="custom_selection">
+		        <input min="4" max="20" step=".1" v-model="board_length" type="number" class="custom_selection"
+		        v-on:change="update_board_options()">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Width (in)</label>
 		      <div class="quarter">
-		        <input min="10" max="40" step=".1" v-model="board_width" type="number" class="custom_selection">
+		        <input min="10" max="40" step=".1" v-model="board_width" type="number" class="custom_selection" 
+		        v-on:change="update_board_options()">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Thicness (in)</label>
 		      <div class="quarter">
-		        <input min="0" max="3" step=".1" v-model="board_thickness" type="number" class="custom_selection">
+		        <input min="0" max="3" step=".1" v-model="board_thickness" type="number" class="custom_selection" 
+		        v-on:change="update_board_options()">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Volume (L)</label>
 		      <div class="quarter">
-		        <input min="10" max="50" step=".1" v-model="board_volume" type="number" class="custom_selection">
+		        <input min="10" max="50" step=".1" v-model="board_volume" type="number" class="custom_selection" 
+		        v-on:change="update_board_options()">
 		      </div>
 		    </div>
 
-		    <span>Board Price: $${board_price}</span>
+		    <span>Board Price: $${board_price} </span>
 		    <button v-on:click="add_board()"> Save Board </button>
 
   		</div>
