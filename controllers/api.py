@@ -1,3 +1,17 @@
+def get_boards():
+    boards = []
+
+    rows = db( (db.boards.price > request.vars.min) & (db.boards.price < request.vars.max) ).select()
+    for i, r in enumerate(rows):
+        b = dict(
+            id = r.id,
+            image_url = r.image_url,
+            price = r.price,
+        )
+        board.append(b)
+    return response.json(dict(
+        boards=boards,
+	))
 
 @auth.requires_signature()
 def add_board():

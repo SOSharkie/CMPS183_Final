@@ -39,6 +39,18 @@ var app = function() {
         );
     }
 
+    self.filter_by_price = function(a, b){
+        $.get(get_boards_url,
+            {
+                min: a,
+                max: b,
+            },
+            function(data)
+            {
+                
+            });
+    }
+
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
