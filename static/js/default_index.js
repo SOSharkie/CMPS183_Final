@@ -22,14 +22,13 @@ var app = function() {
     }
 
     self.change_page = function(new_page) {
-        console.log(new_page);
         self.vue.page = new_page;
     }
 
-    self.add_board = function (img_url) {
+    self.add_board = function () {
         $.post(add_board_url,
             {
-                image_url: img_url,
+                image_url: "../static/images/stock_board1.jpg",
                 board_price: self.vue.board_price,
                 board_type: self.vue.board_type,
                 board_tail_type: self.vue.board_tail_type,
@@ -73,12 +72,12 @@ var app = function() {
         methods: {
             get_boards: self.get_boards,
             change_page: self.change_page,
-            add_boad: self.add_board,
+            add_board: self.add_board,
         }
 
     });
 
-    //self.add_board("../static/images/stock_board1.jpg");
+    //self.add_board();
     self.get_boards();
     return self;
 };

@@ -172,10 +172,10 @@
   			<div class="container custom_div">
 		      <label class="quarter left custom_label">Board Type</label>
 		      <div class="quarter">
-		        <select class="fill custom_selection">
-		          <option>Shortboard $200</option>
-		          <option>Hybrid $250</option>
-		          <option>Longboard $300</option>
+		        <select class="fill custom_selection" v-model="board_type">
+		          <option>Shortboard</option>
+		          <option>Hybrid</option>
+		          <option>Longboard</option>
 		        </select>
 		      </div>
 		    </div>
@@ -183,7 +183,7 @@
 				<div class="container custom_div">
 		      <label class="quarter left custom_label">Tail Type</label>
 		      <div class="quarter">
-		        <select class="fill custom_selection">
+		        <select class="fill custom_selection" v-model="board_tail_type">
 		          <option>Square</option>
 		          <option>Pin</option>
 		          <option>Swallow</option>
@@ -195,7 +195,7 @@
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Color</label>
 		      <div class="quarter">
-		        <select class="fill custom_selection">
+		        <select class="fill custom_selection" v-model="board_color">
 		        	<option>White</option>
 		        	<option>Grey</option>
 		        	<option>Black</option>
@@ -212,46 +212,48 @@
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Fin Number</label>
 		      <div class="quarter">
-		        <input min="1" max="4" step="1" placeholder="3" type="number" class="custom_selection">
+		        <input min="1" max="4" step="1" v-model="num_of_fins" type="number" class="custom_selection">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Length (ft)</label>
 		      <div class="quarter">
-		        <input min="4" max="20" step=".1" placeholder="6" type="number" class="custom_selection">
+		        <input min="4" max="20" step=".1" v-model="board_length" type="number" class="custom_selection">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Width (in)</label>
 		      <div class="quarter">
-		        <input min="10" max="40" step=".1" placeholder="19" type="number" class="custom_selection">
+		        <input min="10" max="40" step=".1" v-model="board_width" type="number" class="custom_selection">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Thicness (in)</label>
 		      <div class="quarter">
-		        <input min="0" max="3" step=".1" placeholder="2.5" type="number" class="custom_selection">
+		        <input min="0" max="3" step=".1" v-model="board_thickness" type="number" class="custom_selection">
 		      </div>
 		    </div>
 
 		    <div class="container custom_div">
 		      <label class="quarter left custom_label">Volume (L)</label>
 		      <div class="quarter">
-		        <input min="10" max="50" step=".1" placeholder="30" type="number" class="custom_selection">
+		        <input min="10" max="50" step=".1" v-model="board_volume" type="number" class="custom_selection">
 		      </div>
 		    </div>
 
 		    <span>Board Price: $300</span>
-		    <button> Save Board</button>
+		    <button v-on:click="add_board()"> Save Board </button>
 
   		</div>
 
   		<!-- ******************************************** About Page ******************************************** -->
   		<div v-if="page == 'about'">
   			<h2> About </h2>
+  			<p> This website was created for the University of California CMPS183 final.</p>
+  			<p> By Sean Odnert and Mark Hiserodt.</p>
   		</div>
 
   		<!-- ******************************************** Cart Page ******************************************** -->
