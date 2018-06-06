@@ -38,6 +38,19 @@
 	margin-top: 10px;
 }
 
+/***************************************** Database ******************************************/
+
+.filter {
+	margin-right: 100px;
+	margin-left: 20px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+.board_price {
+	margin-left: 20px !important;
+	margin-right: 5px !important;
+	width: 100px !important;
+}
 /*************************************** Customization ***************************************/
 
 .custom_label {

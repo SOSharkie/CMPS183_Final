@@ -117,9 +117,9 @@
 			<div class="container">
 
 
-				<div class="quarter">
+				<div>
 					<ul class="menu">
-						<li><h2 class="btn rounded">Filter</h2>
+						<li><h2 class="btn rounded filter">Filter</h2>
 							<ul>
 								<li><a>Price</a>
 									<ul>
@@ -131,7 +131,7 @@
 								</li>
 								<li><a>Board Type</a>
 									<ul>
-											<li v-on:click="set_board_type_filter('All')"><a> All</a></li>
+										<li v-on:click="set_board_type_filter('All')"><a> All</a></li>
 										<li v-on:click="set_board_type_filter('Longboard')"><a>Longboard</a></li>
 										<li v-on:click="set_board_type_filter('Shortboard')"><a>Shortboard</a></li>
 										<li v-on:click="set_board_type_filter('Hybrid')"><a>Hybrid</a></li>
@@ -158,7 +158,18 @@
 							<img src="https://s19.postimg.cc/3r5cl0mrn/surfboard4.png" class="padded"></img>
 						</li> -->
 						<li v-for="board in boards" class="card lifted padded quarter">
-							<img v-bind:src="board.image_url" class="padded rotate90"></img>
+							<div>
+								<!-- The front of the surfboard displays -->
+								<div>
+									<img v-bind:src="board.image_url" height="150px" width="300px" class="padded rotate90"></img>
+									<span class="board_price"> $${board.board_price} </span>
+								</div>
+
+								<!-- The back of the surfboard displays -->
+								<div>
+									<p>The back of the board!</p>
+								</div>
+							</div>
 						</li>
 					</ul>
 				</div>
