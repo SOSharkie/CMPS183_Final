@@ -111,14 +111,11 @@ var app = function() {
     self.set_price_filter = function(min, max){
         self.vue.min_price = min;
         self.vue.max_price = max;
-        //console.log(self.vue.min_price);
-        //console.log(self.vue.max_price);
         self.get_boards();
     };
 
     self.set_board_type_filter = function(board_type){
         self.vue.board_type_filter = board_type;
-        console.log(self.vue.board_type_filter);
         self.get_boards();
     };
 

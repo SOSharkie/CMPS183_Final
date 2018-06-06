@@ -13,10 +13,10 @@
 
 	<div id="vue-div" class="display:none">
 
-  	<div class="container padded">
+  	<div class="container padded webpage_container">
 
   		<!-- ************************************************ Menu ************************************************ -->
-  		<div class="main_menu">
+  		<div class="main_menu" >
 	  		<ul class="menu">
 	  			<li>
 	  				<a v-on:click="change_page('homepage')"> Homepage </a>
@@ -34,7 +34,7 @@
 
 	  		<ul class="menu right">
 	  			<li>
-	  				<button v-on:click="change_page('cart')"> 
+	  				<button v-on:click="change_page('cart')" class="btn rounded"> 
 	             Cart <i class="fa fa-shopping-cart"></i> 
 	          </button>
 	  			</li>
@@ -112,72 +112,82 @@
   		</div>
 
   		<!-- ******************************************* Database Page ******************************************* -->
-  		<div v-if="page == 'database'">
-			<h2> Surfboard Collection </h2>
+  		<div v-if="page == 'database'" class="padded">
 
-			<div class="container">
+				<h2> Surfboard Collection </h2>
 
-				<div class="filter_container">
+				<div class="container">
 
-					<!-- button to delete the last board in the array -->
-					<!-- <button v-on:click="delete_board(boards.length-1)"> Delete </button> -->
+					<div class="filter_container">
 
-					<ul class="menu">
-						<li><h2 class="btn rounded filter">Filter</h2>
-							<ul>
-								<li><a>Price</a>
-									<ul>
-										<li v-on:click="set_price_filter(0, 2500)"><a> All</a></li>
-										<li v-on:click="set_price_filter(0, 100)"><a>< $100</a></li>
-										<li v-on:click="set_price_filter(100, 400)"><a>$100-$400</a></li>
-										<li v-on:click="set_price_filter(500, 2500)"><a>> $500</a></li>
-									</ul>
-								</li>
-								<li><a>Board Type</a>
-									<ul>
-										<li v-on:click="set_board_type_filter('All')"><a> All</a></li>
-										<li v-on:click="set_board_type_filter('Longboard')"><a>Longboard</a></li>
-										<li v-on:click="set_board_type_filter('Shortboard')"><a>Shortboard</a></li>
-										<li v-on:click="set_board_type_filter('Hybrid')"><a>Hybrid</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-					<div class="active_filters">
-						<h5>Active Filters:</h5>
-						<p>Price: $${min_price} to $${max_price}</p>
-						<p>Type: ${board_type_filter}</p>
+						<!-- button to delete the last board in the array -->
+						<!-- <button v-on:click="delete_board(boards.length-1)"> Delete </button> -->
+
+						<ul class="menu">
+							<li><h2 class="btn rounded filter">Filter</h2>
+								<ul>
+									<li><a>Price</a>
+										<ul>
+											<li v-on:click="set_price_filter(0, 2500)"><a> All</a></li>
+											<li v-on:click="set_price_filter(0, 100)"><a>< $100</a></li>
+											<li v-on:click="set_price_filter(100, 400)"><a>$100-$400</a></li>
+											<li v-on:click="set_price_filter(500, 2500)"><a>> $500</a></li>
+										</ul>
+									</li>
+									<li><a>Board Type</a>
+										<ul>
+											<li v-on:click="set_board_type_filter('All')"><a> All</a></li>
+											<li v-on:click="set_board_type_filter('Longboard')"><a>Longboard</a></li>
+											<li v-on:click="set_board_type_filter('Shortboard')"><a>Shortboard</a></li>
+											<li v-on:click="set_board_type_filter('Hybrid')"><a>Hybrid</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div class="active_filters">
+							<h5>Active Filters:</h5>
+							<p>Price: $${min_price} to $${max_price}</p>
+							<p>Type: ${board_type_filter}</p>
+						</div>
 					</div>
-				</div>
 
-				<!-- Code to display the images -->
-				<div class="image_container threequarters">
-					<ul class="container">
-						<li v-for="board in boards" class="card database_card lifted padded quarter rounded">
-							<div>
-								<!-- The front of the surfboard displays -->
-								<div class="blue">
-									<img v-bind:src="board.image_url" class="padded database_board_image"></img>
-									<span class="board_price"> $${board.board_price} </span>
+					<!-- Code to display the images -->
+					<div class="image_container threequarters">
+						<ul class="container">
+							<li v-for="board in boards" class="card database_card lifted padded quarter rounded">
+								<div>
+									<!-- The front of the surfboard displays -->
+									<div class="blue rounded">
+										<span> ${board.board_type} </span>
+										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
+										<span class="board_price"> $${board.board_price} </span>
+									</div>
+
+									<!-- The back of the surfboard displays -->
+									<div class="navy rounded board_description">
+										<span> ${board.board_type} </span>
+										<p class="description_text">Tail: ${board.board_tail_type}</p>
+										<p class="description_text">Color: ${board.board_color}</p>
+										<p class="description_text">Fins: ${board.num_of_fins}</p>
+										<p class="description_text">Length: ${board.board_length}ft.</p>
+										<p class="description_text">Width: ${board.board_width}in.</p>
+										<p class="description_text">Thickness: ${board.board_thickness}in.</p>
+										<p class="description_text">Volume: ${board.board_volume}L</p>
+										<span class="board_price"> $${board.board_price} </span>
+									</div>
 								</div>
+							</li>
+						</ul>
+						<h2 v-if="boards.length == 0"> No boards available </h2>
+					</div>
 
-								<!-- The back of the surfboard displays -->
-								<div class="navy">
-									<p>The back of the board!</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<h2 v-if="boards.length == 0"> No boards available </h2>
 				</div>
-
-			</div>
 			 
   		</div>
 		
   		<!-- **************************************** Customization Page **************************************** -->
-  		<div v-if="page == 'customization'">
+  		<div v-if="page == 'customization'" class="padded">
   			<h2> Customization </h2>
 
   			<div class="container custom_div">
@@ -261,15 +271,15 @@
 		    </div>
 
 		    <span>Board Price: $${board_price} </span>
-		    <button v-if="!saving_board" v-on:click="add_board()"> Save Board </button>
-		    <button v-if="saving_board"> Saving Board...</button>
+		    <button v-if="!saving_board" v-on:click="add_board()" class="btn rounded"> Save Board </button>
+		    <button v-if="saving_board" class="btn rounded"> Saving Board...</button>
 		    <div v-if="saving_board" class="progress fill save_bar"><div class="indeterminate"></div></div>
 		    <h5 v-if="just_added_board"> Board Saved!</h5>
 
   		</div>
 
   		<!-- ******************************************** About Page ******************************************** -->
-  		<div v-if="page == 'about'">
+  		<div v-if="page == 'about'" class="padded">
   			<h2> About </h2>
   			<p> This website was created for the University of California CMPS 183 final.</p>
   			<p> By Sean Odnert and Mark Hiserodt.</p>
@@ -277,7 +287,7 @@
   		</div>
 
   		<!-- ******************************************** Cart Page ******************************************** -->
-  		<div v-if="page == 'cart'">
+  		<div v-if="page == 'cart'" class="padded">
   			<h2> Cart </h2>
   		</div>
 

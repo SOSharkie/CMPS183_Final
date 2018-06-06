@@ -62,12 +62,13 @@
 }
 
 .board_price {
-	margin-left: 20px !important;
-	margin-right: 5px !important;
+	/*margin-left: 20px !important;
+	margin-right: 5px !important;*/
 	width: 100px !important;
 }
 
 .database_card {
+	text-align: center;
 	width: 210px !important; 
 	height: 290px !important;
 	margin-right: 10px !important;
@@ -76,6 +77,15 @@
 
 .database_board_image {
 
+}
+
+.board_description {
+	text-align: center;
+}
+
+.description_text {
+	padding-left: 5px;
+	padding-top: 5px;
 }
 
 /*************************************** Customization ***************************************/
@@ -98,6 +108,10 @@
 }
 
 /*************************************** Random ***************************************/
+
+.webpage_container {
+	padding-left: 0px !important;
+}
 
 h2 {
 	margin-top: 10px;
