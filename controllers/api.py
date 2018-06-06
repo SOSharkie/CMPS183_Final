@@ -24,7 +24,7 @@ def add_board():
         board_length=request.vars.board_length,
         board_width=request.vars.board_width,
         board_thickness=request.vars.board_thickness,
-        board_volume=request.vars.board_volume
+        board_volume=request.vars.board_volume,
     )
     s = db(db.boards.id == s_id).select().first()
     return response.json(dict(boards=dict( 

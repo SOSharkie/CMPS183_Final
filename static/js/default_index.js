@@ -80,8 +80,7 @@ var app = function() {
 
     });
 
-    self.add_board("../static/images/stock_board1.JPG");
-    
+    self.add_board("../static/images/painted_board.JPG");
     return self;
 };
 

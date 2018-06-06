@@ -120,3 +120,19 @@ CREATE TABLE "boards"(
     "board_volume" DOUBLE
 );
 success!
+timestamp: 2018-06-05T17:49:29.365599
+CREATE TABLE "boards"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "created_on" TIMESTAMP,
+    "image_url" CHAR(512),
+    "board_price" DOUBLE,
+    "board_type" TEXT,
+    "board_tail_type" TEXT,
+    "num_of_fins" INTEGER,
+    "board_color" TEXT,
+    "board_length" DOUBLE,
+    "board_width" DOUBLE,
+    "board_thickness" DOUBLE,
+    "board_volume" DOUBLE
+);
+success!

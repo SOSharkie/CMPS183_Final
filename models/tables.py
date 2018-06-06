@@ -21,6 +21,5 @@ db.define_table('boards',
                 Field('board_volume', 'double')
                 )
 
-
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
