@@ -3,7 +3,7 @@
 {{block head}}
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-    var my_url = "{{=URL('api', 'my_method')}}";
+    var add_board_url = "{{=URL('api', 'add_board', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -221,7 +221,7 @@
 		    </div>
 
 		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Height (ft)</label>
+		      <label class="quarter left custom_label">Length (ft)</label>
 		      <div class="quarter">
 		        <input min="4" max="20" step=".1" placeholder="6" type="number" class="custom_selection">
 		      </div>

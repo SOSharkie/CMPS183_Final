@@ -17,14 +17,24 @@ var app = function() {
         self.vue.page = new_page;
     }
 
-    self.add_image = function (img_url) {
-        $.post(add_image_url,
+    self.add_board = function (img_url) {
+        $.post(add_board_url,
             {
                 image_url: img_url,
+                board_price: self.vue.board_price,
+                board_type: self.vue.board_type,
+                board_tail_type: self.vue.board_tail_type,
+                num_of_fins: self.vue.num_of_fins,
+                board_color: self.vue.board_color,
+                board_length: self.vue.board_length,
+                board_width: self.vue.board_width,
+                board_thickness: self.vue.board_thickness,
+                board_volume: self.vue.board_volume,
+
             },
             function(data)
             { 
-                self.vue.images.push(data.images);
+                self.vue.boards.push(data.boards);
             }
         );
     }
@@ -36,12 +46,23 @@ var app = function() {
         data: {
             page: 'homepage',
             img_url: null,
-            images: [],
+            boards: [],
+
+            // Customization options
+            board_price: 0,
+            board_type: 'Shortboard',
+            board_tail_type: 'Square',
+            num_of_fins: 3,
+            board_color: 'White',
+            board_length: 6,
+            board_width: 19,
+            board_thickness: 2.5,
+            board_volume: 30,
+
         },
         methods: {
             change_page: self.change_page,
-
-            add_image: self.add_image,
+            add_boad: self.add_board,
         }
 
     });
