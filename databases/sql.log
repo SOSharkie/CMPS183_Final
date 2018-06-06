@@ -103,3 +103,4 @@ CREATE TABLE "boards"(
     "board_volume" CHAR(512)
 );
 success!
+success!
