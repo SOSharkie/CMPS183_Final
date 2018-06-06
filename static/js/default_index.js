@@ -35,6 +35,7 @@ var app = function() {
             function(data)
             { 
                 self.vue.boards.push(data.boards);
+                console.log(self.vue.boards);
             }
         );
     }
@@ -78,6 +79,8 @@ var app = function() {
         }
 
     });
+
+    self.add_board("../static/images/stock_board1.JPG");
     
     return self;
 };

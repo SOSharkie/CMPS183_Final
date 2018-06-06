@@ -1,19 +1,18 @@
-def get_boards():
-    boards = []
+# def get_boards():
+#     boards = []
 
-    rows = db( (db.boards.price > request.vars.min) & (db.boards.price < request.vars.max) ).select()
-    for i, r in enumerate(rows):
-        b = dict(
-            id = r.id,
-            image_url = r.image_url,
-            price = r.price,
-        )
-        board.append(b)
-    return response.json(dict(
-        boards=boards,
-	))
+#     rows = db( (db.boards.price > request.vars.min) & (db.boards.price < request.vars.max) ).select()
+#     for i, r in enumerate(rows):
+#         b = dict(
+#             id = r.id,
+#             image_url = r.image_url,
+#             price = r.price,
+#         )
+#         board.append(b)
+#     return response.json(dict(
+#         boards=boards,
+# 	))
 
-@auth.requires_signature()
 def add_board():
     s_id = db.boards.insert(
         image_url=request.vars.image_url,
@@ -30,14 +29,14 @@ def add_board():
     s = db(db.boards.id == s_id).select().first()
     return response.json(dict(boards=dict( 
         id = s_id,
-        image_url=s.image_url
-        board_price=q.board_price,
-        board_type=q.board_type,
-        board_tail_type=q.board_tail_type,
-        num_of_fins=q.num_of_fins,
-        board_color=q.board_color,
-        board_length=q.board_length,
-        board_width=q.board_width,
-        board_thickness=q.board_thickness,
-        board_volume=q.board_volume
+        image_url=s.image_url,
+        board_price=s.board_price,
+        board_type=s.board_type,
+        board_tail_type=s.board_tail_type,
+        num_of_fins=s.num_of_fins,
+        board_color=s.board_color,
+        board_length=s.board_length,
+        board_width=s.board_width,
+        board_thickness=s.board_thickness,
+        board_volume=s.board_volume
     )))
