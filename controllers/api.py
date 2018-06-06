@@ -1,17 +1,24 @@
-# def get_boards():
-#     boards = []
-
-#     rows = db( (db.boards.price > request.vars.min) & (db.boards.price < request.vars.max) ).select()
-#     for i, r in enumerate(rows):
-#         b = dict(
-#             id = r.id,
-#             image_url = r.image_url,
-#             price = r.price,
-#         )
-#         board.append(b)
-#     return response.json(dict(
-#         boards=boards,
-# 	))
+def get_boards():
+    boards = []
+    rows = db().select(db.boards.ALL)
+    for r in rows:
+        board = dict(
+            id = r.id,
+            image_url = r.image_url,
+            board_price = r.board_price,
+            board_type=r.board_type,
+            board_tail_type=r.board_tail_type,
+            num_of_fins=r.num_of_fins,
+            board_color=r.board_color,
+            board_length=r.board_length,
+            board_width=r.board_width,
+            board_thickness=r.board_thickness,
+            board_volume=r.board_volume,
+        )
+        boards.append(board)
+    return response.json(dict(
+        boards=boards,
+	))
 
 def add_board():
     s_id = db.boards.insert(

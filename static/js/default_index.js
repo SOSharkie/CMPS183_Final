@@ -12,6 +12,15 @@ var app = function() {
         }
     };
 
+    self.get_boards = function(){
+        $.get(get_boards_url,
+            {}, function(data)
+            {
+                self.vue.boards = data.boards;
+                //console.log(self.vue.boards);
+            });
+    }
+
     self.change_page = function(new_page) {
         console.log(new_page);
         self.vue.page = new_page;
@@ -40,18 +49,6 @@ var app = function() {
         );
     }
 
-    self.filter_by_price = function(a, b){
-        $.get(get_boards_url,
-            {
-                min: a,
-                max: b,
-            },
-            function(data)
-            {
-                
-            });
-    }
-
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
@@ -74,13 +71,15 @@ var app = function() {
 
         },
         methods: {
+            get_boards: self.get_boards,
             change_page: self.change_page,
             add_boad: self.add_board,
         }
 
     });
 
-    self.add_board("../static/images/painted_board.JPG");
+    //self.add_board("../static/images/stock_board1.jpg");
+    self.get_boards();
     return self;
 };
 
