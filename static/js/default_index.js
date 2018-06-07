@@ -172,7 +172,7 @@ var app = function() {
         $.post(toggle_cart_url,
             { in_cart: board.in_cart, },
             function (data) {
-                //self.vue.boards.sort(function(a, b){return null;});
+                self.vue.boards.sort(function(a, b){return null;});
                 if(board.in_cart){
                     self.vue.cart.push(board);
                 } else {

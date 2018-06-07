@@ -321,7 +321,7 @@
 								<div class="aquamarine rounded">
 									<span> ${board.board_type} </span>
 									<img v-bind:src="board.image_url" class="padded database_board_image"></img>
-									<span class="board_price"> $${board.board_price} </span>
+									<div class="board_price"> $${board.board_price}</div>
 								</div>
 
 								<!-- The back of the surfboard displays -->
@@ -334,10 +334,11 @@
 									<p class="description_text">Width: ${board.board_width}in.</p>
 									<p class="description_text">Thickness: ${board.board_thickness}in.</p>
 									<p class="description_text">Volume: ${board.board_volume}L</p>
-									<span class="board_price"> $${board.board_price} </span>
-									<button class="btn rounded red" v-on:click="remove_from_cart(index)">
-											<i class="fa fa-times"></i>
-									</button>
+									<div class="board_price"> $${board.board_price} 
+										<button class="btn rounded" v-on:click="remove_from_cart(index)">
+											<i v-if="board.in_cart" class="fa fa-times"></i>
+										</button>
+									</div>
 								</div>
 
 							</div>
