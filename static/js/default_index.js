@@ -34,7 +34,7 @@ var app = function() {
         self.vue.saving_board = true;
         $.post(add_board_url,
             {
-                image_url: "../static/images/stock_board1.jpg",
+                image_url: self.vue.custom_board_url,
                 board_price: self.vue.board_price,
                 board_type: self.vue.board_type,
                 board_tail_type: self.vue.board_tail_type,
@@ -70,13 +70,48 @@ var app = function() {
 
     self.update_board_options = function() {
         var price = 0;
+        var board_url = '../static/images/surfboards/';
+
+        //color
+        if (self.vue.board_color == 'White'){
+            price += 20;
+            board_url += 'white';
+        } else if (self.vue.board_color == 'Red'){
+            price += 35;
+            board_url += 'red';
+        } else if (self.vue.board_color == 'Orange') {
+            price += 30;
+            board_url += 'orange';
+        } else if (self.vue.board_color == 'Yellow'){
+            price += 35;
+            board_url += 'yellow';
+        } else if (self.vue.board_color == 'Green'){
+            price += 45;
+            board_url += 'green';
+        } else if (self.vue.board_color == 'Blue') {
+            price += 45;
+            board_url += 'blue';
+        } else if (self.vue.board_color == 'Purple'){
+            price += 50;
+            board_url += 'purple';
+        } else if (self.vue.board_color == 'Grey'){
+            price += 25;
+            board_url += 'grey';
+        } else if (self.vue.board_color == 'Black'){
+            price += 50;
+            board_url += 'black';
+        }
+
         //Board type
         if (self.vue.board_type == 'Shortboard'){
             price += 200;
+            board_url += '_shortboard.jpg';
         } else if (self.vue.board_type == 'Hybrid'){
             price += 250;
+            board_url += '_shortboard.jpg';
         } else if (self.vue.board_type == 'Longboard'){
             price += 300;
+            board_url += '_longboard.jpg';
         }
         //Tail type
         if (self.vue.board_tail_type == 'Square'){
@@ -88,16 +123,7 @@ var app = function() {
         } else if (self.vue.board_tail_type == 'Diamond'){
             price += 40;
         }
-        //color
-        if (self.vue.board_color == 'White' || self.vue.board_color == 'Grey'){
-            price += 20;
-        } else if (self.vue.board_color == 'Blue' || self.vue.board_color == 'Green' || 
-            self.vue.board_color == 'Red' || self.vue.board_color == 'Orange'){
-            price += 30;
-        } else if (self.vue.board_color == 'Black' || self.vue.board_color == 'Purple' ||
-            self.vue.board_color == 'Yellow'){
-            price += 40;
-        } 
+
         //fins
         price += (self.vue.num_of_fins * 20);
         //length
@@ -105,6 +131,8 @@ var app = function() {
         //volume
         price += (self.vue.board_volume * 2);
 
+        console.log(board_url);
+        self.vue.custom_board_url = board_url;
         self.vue.board_price = price;
     }
 
@@ -138,6 +166,7 @@ var app = function() {
             board_width: 19,
             board_thickness: 2.5,
             board_volume: 30,
+            custom_board_url: '../static/images/surfboards/white_shortboard.jpg',
             min_price: 0,
             max_price: 2500,
             board_type_filter: 'All',

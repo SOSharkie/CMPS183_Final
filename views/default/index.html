@@ -33,7 +33,10 @@
 	  		</ul>
 
 	  		<ul class="menu right">
-	  			<li>
+<!-- 	  			<li>
+	  				<button class="btn rounded"><a href="/final/default/user" class="login_button"></a>Login</button>
+	  			</li>
+	  			<li> -->
 	  				<button v-on:click="change_page('cart')" class="btn rounded"> 
 	             Cart <i class="fa fa-shopping-cart"></i> 
 	          </button>
@@ -57,7 +60,7 @@
 				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
 				        </div>
 				        <div class="navy padded rounded">
-				          High Performance and stylish! 
+				          High performance and stylish! 
 				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
 				        </div>
 				      </div>
@@ -187,94 +190,100 @@
   		</div>
 		
   		<!-- **************************************** Customization Page **************************************** -->
-  		<div v-if="page == 'customization'" class="padded">
+  		<div v-if="page == 'customization'" class="padded container">
   			<h2> Customization </h2>
 
-  			<div class="container custom_div">
-		      <label class="quarter left custom_label">Board Type</label>
-		      <div class="quarter">
-		        <select class="fill custom_selection" v-model="board_type" v-on:change="update_board_options()">
-		          <option>Shortboard</option>
-		          <option>Hybrid</option>
-		          <option>Longboard</option>
-		        </select>
-		      </div>
-		    </div>
+  			<div class="third">
+	  			<div class="container custom_div">
+			      <label class="quarter left custom_label">Board Type</label>
+			      <div class="half">
+			        <select class="fill custom_selection" v-model="board_type" v-on:change="update_board_options()">
+			          <option>Shortboard</option>
+			          <option>Hybrid</option>
+			          <option>Longboard</option>
+			        </select>
+			      </div>
+			    </div>
 
-				<div class="container custom_div">
-		      <label class="quarter left custom_label">Tail Type</label>
-		      <div class="quarter">
-		        <select class="fill custom_selection" v-model="board_tail_type" v-on:change="update_board_options()">
-		          <option>Square</option>
-		          <option>Pin</option>
-		          <option>Swallow</option>
-		          <option>Diamond</option>
-		        </select>
-		      </div>
-		    </div>
+					<div class="container custom_div">
+			      <label class="quarter left custom_label">Tail Type</label>
+			      <div class="half">
+			        <select class="fill custom_selection" v-model="board_tail_type" v-on:change="update_board_options()">
+			          <option>Square</option>
+			          <option>Pin</option>
+			          <option>Swallow</option>
+			          <option>Diamond</option>
+			        </select>
+			      </div>
+			    </div>
 
-		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Color</label>
-		      <div class="quarter">
-		        <select class="fill custom_selection" v-model="board_color" v-on:change="update_board_options()">
-		        	<option>White</option>
-		        	<option>Grey</option>
-		        	<option>Black</option>
-		          <option>Red</option>
-		          <option>Orange</option>
-		          <option>Yellow</option>
-		          <option>Green</option>
-		          <option>Blue</option>
-		          <option>Purple</option>
-		        </select>
-		      </div>
-		    </div>
+			    <div class="container custom_div">
+			      <label class="quarter left custom_label">Color</label>
+			      <div class="half">
+			        <select class="fill custom_selection" v-model="board_color" v-on:change="update_board_options()">
+			        	<option>White</option>
+			        	<option>Grey</option>
+			        	<option>Black</option>
+			          <option>Red</option>
+			          <option>Orange</option>
+			          <option>Yellow</option>
+			          <option>Green</option>
+			          <option>Blue</option>
+			          <option>Purple</option>
+			        </select>
+			      </div>
+			    </div>
 
-		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Fin Number</label>
-		      <div class="quarter">
-		        <input min="1" max="4" step="1" v-model="num_of_fins" type="number" class="custom_selection" 
-		        v-on:change="update_board_options()">
-		      </div>
-		    </div>
+			    <div class="container custom_div">
+			      <label class="quarter left custom_label">Fin Number</label>
+			      <div class="half">
+			        <input min="1" max="4" step="1" v-model="num_of_fins" type="number" class="custom_selection" 
+			        v-on:change="update_board_options()">
+			      </div>
+			    </div>
 
-		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Length (ft)</label>
-		      <div class="quarter">
-		        <input min="4" max="20" step=".1" v-model="board_length" type="number" class="custom_selection"
-		        v-on:change="update_board_options()">
-		      </div>
-		    </div>
+			    <div class="container custom_div">
+			      <label class="quarter left custom_label">Length (ft)</label>
+			      <div class="half">
+			        <input min="4" max="20" step=".1" v-model="board_length" type="number" class="custom_selection"
+			        v-on:change="update_board_options()">
+			      </div>
+			    </div>
 
-		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Width (in)</label>
-		      <div class="quarter">
-		        <input min="10" max="40" step=".1" v-model="board_width" type="number" class="custom_selection" 
-		        v-on:change="update_board_options()">
-		      </div>
-		    </div>
+			    <div class="container custom_div">
+			      <label class="quarter left custom_label">Width (in)</label>
+			      <div class="half">
+			        <input min="10" max="40" step=".1" v-model="board_width" type="number" class="custom_selection" 
+			        v-on:change="update_board_options()">
+			      </div>
+			    </div>
 
-		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Thicness (in)</label>
-		      <div class="quarter">
-		        <input min="0" max="3" step=".1" v-model="board_thickness" type="number" class="custom_selection" 
-		        v-on:change="update_board_options()">
-		      </div>
-		    </div>
+			    <div class="container custom_div">
+			      <label class="quarter left custom_label">Thicness (in)</label>
+			      <div class="half">
+			        <input min="0" max="3" step=".1" v-model="board_thickness" type="number" class="custom_selection" 
+			        v-on:change="update_board_options()">
+			      </div>
+			    </div>
 
-		    <div class="container custom_div">
-		      <label class="quarter left custom_label">Volume (L)</label>
-		      <div class="quarter">
-		        <input min="10" max="50" step=".1" v-model="board_volume" type="number" class="custom_selection" 
-		        v-on:change="update_board_options()">
-		      </div>
-		    </div>
+			    <div class="container custom_div">
+			      <label class="quarter left custom_label">Volume (L)</label>
+			      <div class="half">
+			        <input min="10" max="50" step=".1" v-model="board_volume" type="number" class="custom_selection" 
+			        v-on:change="update_board_options()">
+			      </div>
+			    </div>
 
-		    <span>Board Price: $${board_price} </span>
-		    <button v-if="!saving_board" v-on:click="add_board()" class="btn rounded"> Save Board </button>
-		    <button v-if="saving_board" class="btn rounded"> Saving Board...</button>
-		    <div v-if="saving_board" class="progress fill save_bar"><div class="indeterminate"></div></div>
-		    <h5 v-if="just_added_board"> Board Saved!</h5>
+			    <span>Board Price: $${board_price} </span>
+			    <button v-if="!saving_board" v-on:click="add_board()" class="btn rounded"> Save Board </button>
+			    <button v-if="saving_board" class="btn rounded"> Saving Board...</button>
+			    <div v-if="saving_board" class="progress fill save_bar"><div class="indeterminate"></div></div>
+			    <h5 v-if="just_added_board"> Board Saved!</h5>
+			  </div>
+
+			  <div class="twothirds">
+			  	<img v-bind:src="custom_board_url" class="" height="400px" width="200px"></img>
+			  </div>
 
   		</div>
 

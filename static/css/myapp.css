@@ -8,6 +8,11 @@
 	margin-bottom: 5px !important;
 }
 
+.login_button {
+	padding-left: 1px !important;
+	padding-right: 5px !important;
+}
+
 /*************************************** Homepage ***************************************/
 .homepage_title {
 	margin-top: 20px !important;
