@@ -90,10 +90,12 @@ var app = function() {
             {
                 self.vue.logged_in = data.logged_in;
                 self.vue.boards = data.boards;
+                self.vue.boards.sort(function(a, b){return a.board_price - b.board_price;});
                 for (var i = 0; i < self.vue.boards.length; i++){
                     var in_cart = false;
                     for (var j = 0; j < self.vue.cart.length; j++){
                         if (self.vue.boards[i].id == self.vue.cart[j].id){
+                            self.vue.boards[i].in_cart = true;
                             in_cart = true;
                         }
                     }
@@ -107,8 +109,6 @@ var app = function() {
                         );
                     }
                 }
-                //console.log(self.vue.boards);
-                console.log(logged_in);
             });
     };
 
@@ -172,16 +172,37 @@ var app = function() {
         $.post(toggle_cart_url,
             { in_cart: board.in_cart, },
             function (data) {
-                self.vue.boards.sort(function(a, b){return new Date(b.created_on) - new Date(a.created_on);});
+                //self.vue.boards.sort(function(a, b){return null;});
                 if(board.in_cart){
                     self.vue.cart.push(board);
                 } else {
-                    self.vue.cart.splice(board, 1);
+                    var found_idx = 0;
+                    for (var i = 0; i < self.vue.cart.length; i++) {
+                        if (self.vue.cart[i].id === board.id) {
+                            found_idx = i;
+                        }
+                    }
+                    self.vue.cart.splice(found_idx, 1);
                 }
             }
         );
-        //console.log(self.vue.cart);
+    }
 
+    self.remove_from_cart = function(board_idx){
+        var board = self.vue.cart[board_idx];
+        board.in_cart = !board.in_cart;
+        $.post(toggle_cart_url,
+            { in_cart: board.in_cart, },
+            function (data) {
+                var found_idx = 0;
+                    for (var i = 0; i < self.vue.cart.length; i++) {
+                        if (self.vue.cart[i].id === board.id) {
+                            found_idx = i;
+                        }
+                    }
+                self.vue.cart.splice(found_idx, 1);
+            }
+        );
     }
 
     self.vue = new Vue({
@@ -221,6 +242,7 @@ var app = function() {
             set_price_filter: self.set_price_filter,
             set_board_type_filter: self.set_board_type_filter,
             toggle_cart: self.toggle_cart,
+            remove_from_cart: self.remove_from_cart,
         }
 
     });

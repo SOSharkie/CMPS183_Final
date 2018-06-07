@@ -37,11 +37,13 @@
 <!-- 	  			<li>
 	  				<button class="btn rounded"><a href="/final/default/user" class="login_button"></a>Login</button>
 	  			</li>
-	  			<li> -->
-	  				<button v-on:click="change_page('cart')" class="btn rounded"> 
-	             Cart <i class="fa fa-shopping-cart"></i> 
-	          </button>
-	  			</li>
+	  			<li> </li>-->
+	  			<button v-if="page != 'cart'" v-on:click="change_page('cart')" class="btn rounded"> 
+	             	Cart <i class="fa fa-shopping-cart"></i> 
+				</button>
+				<button v-if="page == 'cart'" v-on:click="change_page('database')" class="btn rounded"> 
+					Shop
+				</button>
 	  		</ul>
   		</div>
 
@@ -308,8 +310,44 @@
 
   		<!-- ******************************************** Cart Page ******************************************** -->
   		<div v-if="page == 'cart'" class="padded">
-  			<h2> Cart </h2>
+			  <h2> Cart </h2>
+			  
+			<!-- Code to display the images -->
+			<div class="image_container threequarters">
+					<ul class="container">
+						<li v-for="(board, index) in cart" class="card database_card lifted padded quarter rounded">
+							<div>
+								<!-- The front of the surfboard displays -->
+								<div class="aquamarine rounded">
+									<span> ${board.board_type} </span>
+									<img v-bind:src="board.image_url" class="padded database_board_image"></img>
+									<span class="board_price"> $${board.board_price} </span>
+								</div>
+
+								<!-- The back of the surfboard displays -->
+								<div class="navy rounded board_description">
+									<span> ${board.board_type} </span>
+									<p class="description_text">Tail: ${board.board_tail_type}</p>
+									<p class="description_text">Color: ${board.board_color}</p>
+									<p class="description_text">Fins: ${board.num_of_fins}</p>
+									<p class="description_text">Length: ${board.board_length}ft.</p>
+									<p class="description_text">Width: ${board.board_width}in.</p>
+									<p class="description_text">Thickness: ${board.board_thickness}in.</p>
+									<p class="description_text">Volume: ${board.board_volume}L</p>
+									<span class="board_price"> $${board.board_price} </span>
+									<button class="btn rounded red" v-on:click="remove_from_cart(index)">
+											<i class="fa fa-times"></i>
+									</button>
+								</div>
+
+							</div>
+						</li>
+					</ul>
+					<h2 v-if="cart.length == 0"> No boards in the cart. Go add some boards! </h2>
+				</div>
+
   		</div>
+		<!-- ******************************************** End Cart Page ******************************************** -->
 
 		</div>
     

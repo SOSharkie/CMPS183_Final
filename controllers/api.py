@@ -18,6 +18,7 @@ def get_boards():
             board_width=r.board_width,
             board_thickness=r.board_thickness,
             board_volume=r.board_volume,
+            in_cart=r.in_cart,
         )
         boards.append(board)
     logged_in = auth.user is not None
