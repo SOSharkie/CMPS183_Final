@@ -20,8 +20,10 @@ def get_boards():
             board_volume=r.board_volume,
         )
         boards.append(board)
+    logged_in = auth.user is not None
     return response.json(dict(
         boards=boards,
+        logged_in = logged_in,
 	))
 
 def add_board():
@@ -49,10 +51,14 @@ def add_board():
         board_length=s.board_length,
         board_width=s.board_width,
         board_thickness=s.board_thickness,
-        board_volume=s.board_volume
+        board_volume=s.board_volume,
     )))
 
+def toggle_cart():
+    board = db(db.boards.id == request.vars.board_id).select().first()
+    board.update_record(in_cart = request.vars.in_cart)
+    return "ok"
+
 def delete_board():
-	"Deletes a board from the table"
 	db(db.boards.id == request.vars.board_id).delete()
 	return "ok"

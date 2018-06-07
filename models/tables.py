@@ -18,7 +18,8 @@ db.define_table('boards',
                 Field('board_length', 'double'),
                 Field('board_width', 'double'),
                 Field('board_thickness', 'double'),
-                Field('board_volume', 'double')
+                Field('board_volume', 'double'),
+                Field('in_cart', 'boolean', default=False),
                 )
 
 # after defining tables, uncomment below to enable auditing

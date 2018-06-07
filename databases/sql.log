@@ -136,3 +136,6 @@ CREATE TABLE "boards"(
     "board_volume" DOUBLE
 );
 success!
+timestamp: 2018-06-07T11:59:27.541097
+ALTER TABLE "boards" ADD "in_cart" CHAR(1);
+success!

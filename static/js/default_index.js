@@ -12,62 +12,6 @@ var app = function() {
         }
     };
 
-    self.get_boards = function(){
-        $.get(get_boards_url,
-            {
-                min: self.vue.min_price,
-                max: self.vue.max_price,
-                board_type: self.vue.board_type_filter,
-            }, function(data)
-            {
-                self.vue.boards = data.boards;
-                console.log(self.vue.boards);
-            });
-    };
-
-    self.change_page = function(new_page) {
-        self.vue.page = new_page;
-        self.update_board_options();
-    };
-
-    self.add_board = function () {
-        self.vue.saving_board = true;
-        $.post(add_board_url,
-            {
-                image_url: self.vue.custom_board_url,
-                board_price: self.vue.board_price,
-                board_type: self.vue.board_type,
-                board_tail_type: self.vue.board_tail_type,
-                num_of_fins: self.vue.num_of_fins,
-                board_color: self.vue.board_color,
-                board_length: self.vue.board_length,
-                board_width: self.vue.board_width,
-                board_thickness: self.vue.board_thickness,
-                board_volume: self.vue.board_volume,
-
-            },
-            function(data) { 
-                self.vue.boards.push(data.boards);
-                setTimeout(function() {
-                    self.vue.saving_board = false;
-                    self.vue.just_added_board = true;
-                    setTimeout(function() {
-                        self.vue.just_added_board = false;
-                    }, 5000)
-                }, 2000);
-            }
-        );
-    };
-
-    self.delete_board = function(board_idx) {
-        $.post(delete_board_url,
-            { board_id: self.vue.boards[board_idx].id },
-            function () {
-                self.vue.boards.splice(board_idx, 1);
-            }
-        );
-    };
-
     self.update_board_options = function() {
         var price = 0;
         var board_url = '../static/images/surfboards/';
@@ -131,10 +75,85 @@ var app = function() {
         //volume
         price += (self.vue.board_volume * 2);
 
-        console.log(board_url);
+        //console.log(board_url);
         self.vue.custom_board_url = board_url;
         self.vue.board_price = price;
     }
+
+    self.get_boards = function(){
+        $.get(get_boards_url,
+            {
+                min: self.vue.min_price,
+                max: self.vue.max_price,
+                board_type: self.vue.board_type_filter,
+            }, function(data)
+            {
+                logged_in = data.logged_in;
+                self.vue.boards = data.boards;
+                for (var i = 0; i < self.vue.boards.length; i++){
+                    var in_cart = false;
+                    for (var j = 0; j < self.vue.cart.length; j++){
+                        if (self.vue.boards[i].id == self.vue.cart[j].id){
+                            in_cart = true;
+                        }
+                    }
+                    if (!in_cart && self.vue.boards[i].in_cart){
+                        self.vue.boards[i].in_cart = !self.vue.boards[i].in_cart;
+                        $.post(toggle_cart_url,
+                            {
+                                board_id: self.vue.boars[i].id,
+                                in_cart: self.vue.boards[i].in_cart
+                            },  function () {}
+                        );
+                    }
+                }
+                //console.log(self.vue.boards);
+                console.log(logged_in);
+            });
+    };
+
+    self.change_page = function(new_page) {
+        self.vue.page = new_page;
+        self.update_board_options();
+    };
+
+    self.add_board = function () {
+        self.vue.saving_board = true;
+        $.post(add_board_url,
+            {
+                image_url: self.vue.custom_board_url,
+                board_price: self.vue.board_price,
+                board_type: self.vue.board_type,
+                board_tail_type: self.vue.board_tail_type,
+                num_of_fins: self.vue.num_of_fins,
+                board_color: self.vue.board_color,
+                board_length: self.vue.board_length,
+                board_width: self.vue.board_width,
+                board_thickness: self.vue.board_thickness,
+                board_volume: self.vue.board_volume,
+
+            },
+            function(data) { 
+                self.vue.boards.push(data.boards);
+                setTimeout(function() {
+                    self.vue.saving_board = false;
+                    self.vue.just_added_board = true;
+                    setTimeout(function() {
+                        self.vue.just_added_board = false;
+                    }, 5000)
+                }, 2000);
+            }
+        );
+    };
+
+    self.delete_board = function(board_idx) {
+        $.post(delete_board_url,
+            { board_id: self.vue.boards[board_idx].id },
+            function () {
+                self.vue.boards.splice(board_idx, 1);
+            }
+        );
+    };
 
     self.set_price_filter = function(min, max){
         self.vue.min_price = min;
@@ -147,14 +166,34 @@ var app = function() {
         self.get_boards();
     };
 
+    self.toggle_cart = function(board_idx){
+        var board = self.vue.boards[board_idx];
+        board.in_cart = !board.in_cart;
+        $.post(toggle_cart_url,
+            { in_cart: board.in_cart, },
+            function (data) {
+                self.vue.boards.sort(function(a, b){return new Date(b.created_on) - new Date(a.created_on);});
+                if(board.in_cart){
+                    self.vue.cart.push(board);
+                } else {
+                    self.vue.cart.splice(board, 1);
+                }
+            }
+        );
+        //console.log(self.vue.cart);
+
+    }
+
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
             page: 'homepage',
+            logged_in: false,
             img_url: null,
             boards: [],
+            cart: [],
 
             // Customization options
             board_price: 0,
@@ -174,13 +213,14 @@ var app = function() {
             just_added_board: false,
         },
         methods: {
+            update_board_options: self.update_board_options,
             get_boards: self.get_boards,
             change_page: self.change_page,
             add_board: self.add_board,
             delete_board: self.delete_board,
-            update_board_options: self.update_board_options,
             set_price_filter: self.set_price_filter,
             set_board_type_filter: self.set_board_type_filter,
+            toggle_cart: self.toggle_cart,
         }
 
     });

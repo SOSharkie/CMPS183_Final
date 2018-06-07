@@ -6,6 +6,7 @@
 	var add_board_url = "{{=URL('api', 'add_board', user_signature=True)}}";
 	var get_boards_url = "{{=URL('api', 'get_boards', user_signature=True)}}";
 	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
+	var toggle_cart_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -22,7 +23,7 @@
 	  				<a v-on:click="change_page('homepage')"> Homepage </a>
 	  			</li>
 	  			<li>
-	  				<a v-on:click="change_page('database')"> Database </a>
+	  				<a v-on:click="change_page('database')"> Surfboards </a>
 	  			</li>
 	  			<li>
 	  				<a v-on:click="change_page('customization')"> Customization </a>
@@ -133,7 +134,7 @@
 										<ul>
 											<li v-on:click="set_price_filter(0, 2500)"><a> All</a></li>
 											<li v-on:click="set_price_filter(0, 100)"><a>< $100</a></li>
-											<li v-on:click="set_price_filter(100, 400)"><a>$100-$400</a></li>
+											<li v-on:click="set_price_filter(100, 500)"><a>$100-$500</a></li>
 											<li v-on:click="set_price_filter(500, 2500)"><a>> $500</a></li>
 										</ul>
 									</li>
@@ -158,13 +159,14 @@
 					<!-- Code to display the images -->
 					<div class="image_container threequarters">
 						<ul class="container">
-							<li v-for="board in boards" class="card database_card lifted padded quarter rounded">
+							<li v-for="(board, index) in boards" class="card database_card lifted padded quarter rounded">
 								<div>
 									<!-- The front of the surfboard displays -->
-									<div class="blue rounded">
+									<div class="aquamarine rounded">
 										<span> ${board.board_type} </span>
 										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
 										<span class="board_price"> $${board.board_price} </span>
+										<i v-if="board.in_cart" class="fa fa-check"></i>
 									</div>
 
 									<!-- The back of the surfboard displays -->
@@ -178,7 +180,12 @@
 										<p class="description_text">Thickness: ${board.board_thickness}in.</p>
 										<p class="description_text">Volume: ${board.board_volume}L</p>
 										<span class="board_price"> $${board.board_price} </span>
+										<button class="btn rounded" v-on:click="toggle_cart(index)">
+												<i v-if="board.in_cart" class="fa fa-check"></i>
+												<i class="fa fa-shopping-cart"></i>
+										</button>
 									</div>
+
 								</div>
 							</li>
 						</ul>
