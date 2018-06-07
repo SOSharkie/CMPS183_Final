@@ -103,7 +103,7 @@ var app = function() {
                         self.vue.boards[i].in_cart = !self.vue.boards[i].in_cart;
                         $.post(toggle_cart_url,
                             {
-                                board_id: self.vue.boars[i].id,
+                                board_id: self.vue.boards[i].id,
                                 in_cart: self.vue.boards[i].in_cart
                             },  function () {}
                         );
@@ -115,6 +115,19 @@ var app = function() {
     self.change_page = function(new_page) {
         self.vue.page = new_page;
         self.update_board_options();
+        if (new_page == 'cart') {
+            self.stripe_instance = StripeCheckout.configure({
+            key: 'pk_test_kN2E9pbA1kN5CzoWMkQX8C4g',    //put your own publishable key here
+            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            locale: 'auto',
+            token: function(token, args) {
+                console.log('got a token. sending data to localhost.');
+                self.stripe_token = token;
+                self.customer_info = args;
+                self.send_data_to_server();
+            }
+        });
+        }
     };
 
     self.add_board = function () {
@@ -175,6 +188,7 @@ var app = function() {
                 self.vue.boards.sort(function(a, b){return null;});
                 if(board.in_cart){
                     self.vue.cart.push(board);
+                    self.vue.cart_total += board.board_price;
                 } else {
                     var found_idx = 0;
                     for (var i = 0; i < self.vue.cart.length; i++) {
@@ -201,9 +215,48 @@ var app = function() {
                         }
                     }
                 self.vue.cart.splice(found_idx, 1);
+                self.vue.cart_total -= board.board_price;
             }
         );
-    }
+    };
+
+    self.pay = function () {
+        self.stripe_instance.open({
+            name: "Your nice cart",
+            description: "Buy cart content",
+            billingAddress: true,
+            shippingAddress: true,
+            amount: Math.round(self.vue.cart_total * 100),
+        });
+    };
+
+    self.send_data_to_server = function () {
+        console.log("Payment for:", self.customer_info);
+        // Calls the server.
+        $.post(purchase_url,
+            {
+                customer_info: JSON.stringify(self.customer_info),
+                transaction_token: JSON.stringify(self.stripe_token),
+                amount: self.vue.cart_total,
+                cart: JSON.stringify(self.vue.cart),
+            },
+            function (data) {
+                // The order was successful.
+                self.vue.cart = [];
+                for (var i = 0; i < self.vue.boards.length; i++){
+                    self.vue.boards[i].in_cart = false;
+                    $.post(toggle_cart_url,
+                            {
+                                board_id: self.vue.boards[i].id,
+                                in_cart: self.vue.boards[i].in_cart
+                            },  function () {}
+                        );
+                }
+                self.vue.cart_total = 0;
+                $.web2py.flash("Thank you for your purchase");
+            }
+        );
+    };
 
     self.vue = new Vue({
         el: "#vue-div",
@@ -232,6 +285,7 @@ var app = function() {
             board_type_filter: 'All',
             saving_board: false,
             just_added_board: false,
+            cart_total: 0,
         },
         methods: {
             update_board_options: self.update_board_options,
@@ -243,6 +297,7 @@ var app = function() {
             set_board_type_filter: self.set_board_type_filter,
             toggle_cart: self.toggle_cart,
             remove_from_cart: self.remove_from_cart,
+            pay: self.pay,
         }
 
     });

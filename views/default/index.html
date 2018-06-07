@@ -2,11 +2,13 @@
 
 {{block head}}
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script>
 	var add_board_url = "{{=URL('api', 'add_board', user_signature=True)}}";
 	var get_boards_url = "{{=URL('api', 'get_boards', user_signature=True)}}";
 	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 	var toggle_cart_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
+	var purchase_url = "{{=URL('api', 'purchase', hmac_key=session.hmac_key)}}";
 </script>
 {{end}}
 
@@ -312,39 +314,52 @@
   		<div v-if="page == 'cart'" class="padded">
 			  <h2> Cart </h2>
 			  
-			<!-- Code to display the images -->
-			<div class="image_container threequarters">
-					<ul class="container">
-						<li v-for="(board, index) in cart" class="card database_card lifted padded quarter rounded">
-							<div>
-								<!-- The front of the surfboard displays -->
-								<div class="aquamarine rounded">
-									<span> ${board.board_type} </span>
-									<img v-bind:src="board.image_url" class="padded database_board_image"></img>
-									<div class="board_price"> $${board.board_price}</div>
-								</div>
+			  <div class="container">
 
-								<!-- The back of the surfboard displays -->
-								<div class="navy rounded board_description">
-									<span> ${board.board_type} </span>
-									<p class="description_text">Tail: ${board.board_tail_type}</p>
-									<p class="description_text">Color: ${board.board_color}</p>
-									<p class="description_text">Fins: ${board.num_of_fins}</p>
-									<p class="description_text">Length: ${board.board_length}ft.</p>
-									<p class="description_text">Width: ${board.board_width}in.</p>
-									<p class="description_text">Thickness: ${board.board_thickness}in.</p>
-									<p class="description_text">Volume: ${board.board_volume}L</p>
-									<div class="board_price"> $${board.board_price} 
-										<button class="btn rounded" v-on:click="remove_from_cart(index)">
-											<i v-if="board.in_cart" class="fa fa-times"></i>
-										</button>
+			  	<div class="filter_container">
+
+						<div v-if="cart.length > 0" class="total_price">
+            	Your total price: $${cart_total}
+            	<button class="btn blue" v-on:click="pay()"><i class="fa fa-lg fa-credit-card"></i> Pay</button>
+          	</div>
+
+					</div>
+
+					<!-- Code to display the images -->
+					<div class="image_container threequarters">
+						<ul class="container">
+							<li v-for="(board, index) in cart" class="card database_card lifted padded quarter rounded">
+								<div>
+									<!-- The front of the surfboard displays -->
+									<div class="aquamarine rounded">
+										<span> ${board.board_type} </span>
+										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
+										<div class="board_price"> $${board.board_price}</div>
 									</div>
-								</div>
 
-							</div>
-						</li>
-					</ul>
-					<h2 v-if="cart.length == 0"> No boards in the cart. Go add some boards! </h2>
+									<!-- The back of the surfboard displays -->
+									<div class="navy rounded board_description">
+										<span> ${board.board_type} </span>
+										<p class="description_text">Tail: ${board.board_tail_type}</p>
+										<p class="description_text">Color: ${board.board_color}</p>
+										<p class="description_text">Fins: ${board.num_of_fins}</p>
+										<p class="description_text">Length: ${board.board_length}ft.</p>
+										<p class="description_text">Width: ${board.board_width}in.</p>
+										<p class="description_text">Thickness: ${board.board_thickness}in.</p>
+										<p class="description_text">Volume: ${board.board_volume}L</p>
+										<div class="board_price"> $${board.board_price} 
+											<button class="btn rounded" v-on:click="remove_from_cart(index)">
+												<i v-if="board.in_cart" class="fa fa-times"></i>
+											</button>
+										</div>
+									</div>
+
+								</div>
+							</li>
+						</ul>
+						<h2 v-if="cart.length == 0"> No boards in the cart. Go add some boards! </h2>
+					</div>
+
 				</div>
 
   		</div>

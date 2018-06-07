@@ -1,3 +1,11 @@
+import tempfile
+import json
+
+# Cloud-safe of uuid, so that many cloned servers do not all use the same uuids.
+from gluon.utils import web2py_uuid
+if session.hmac_key is None:
+    session.hmac_key = web2py_uuid()
+
 def get_boards():
     boards = []
     #rows = db().select(db.boards.ALL)
@@ -63,3 +71,29 @@ def toggle_cart():
 def delete_board():
 	db(db.boards.id == request.vars.board_id).delete()
 	return "ok"
+
+def purchase():
+    """Ajax function called when a customer orders and pays for the cart."""
+    if not URL.verify(request, hmac_key=session.hmac_key):
+        raise HTTP(500)
+    # Creates the charge.
+    try:
+        import stripe
+    except Exception, e:
+        pass
+    # Your secret key.
+    stripe.api_key = "sk_test_c13DXcRVMAhEZe5DNW6vgLgi"
+    token = json.loads(request.vars.transaction_token)
+    amount = float(request.vars.amount)
+    try:
+        charge = stripe.Charge.create(
+            amount=int(amount * 100),
+            currency="usd",
+            source=token['id'],
+            description="Purchase",
+        )
+    except stripe.error.CardError as e:
+        logger.info("The card has been declined.")
+        logger.info("%r" % traceback.format_exc())
+        return "nok"
+    return "ok"
