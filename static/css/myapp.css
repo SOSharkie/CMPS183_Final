@@ -66,10 +66,15 @@
 	background-color: lightgray;
 }
 
+.board_type {
+	text-align: center;
+}
+
 .board_price {
 	/*margin-left: 20px !important;
 	margin-right: 5px !important;*/
-	width: 100px !important;
+	/*width: 100px !important;*/
+	text-align: center;
 }
 
 .database_card {
@@ -81,7 +86,9 @@
 
 
 .database_board_image {
-
+	/*height: 250px !important;
+	width: 125px !important;*/
+	max-height: 85%;
 }
 
 .board_description {

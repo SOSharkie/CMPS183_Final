@@ -163,15 +163,14 @@
 								<div>
 									<!-- The front of the surfboard displays -->
 									<div class="aquamarine rounded">
-										<span> ${board.board_type} </span>
+										<div class="board_type"> ${board.board_type} </div>
 										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
-										<span class="board_price"> $${board.board_price} </span>
-										<i v-if="board.in_cart" class="fa fa-check"></i>
+										<div class="board_price"> $${board.board_price} <i v-if="board.in_cart" class="fa fa-check"></i></div>
 									</div>
 
 									<!-- The back of the surfboard displays -->
 									<div class="navy rounded board_description">
-										<span> ${board.board_type} </span>
+										<div class="board_type"> ${board.board_type} </div>
 										<p class="description_text">Tail: ${board.board_tail_type}</p>
 										<p class="description_text">Color: ${board.board_color}</p>
 										<p class="description_text">Fins: ${board.num_of_fins}</p>
@@ -179,11 +178,12 @@
 										<p class="description_text">Width: ${board.board_width}in.</p>
 										<p class="description_text">Thickness: ${board.board_thickness}in.</p>
 										<p class="description_text">Volume: ${board.board_volume}L</p>
-										<span class="board_price"> $${board.board_price} </span>
-										<button class="btn rounded" v-on:click="toggle_cart(index)">
+										<div class="board_price"> $${board.board_price} 
+											<button class="btn rounded" v-on:click="toggle_cart(index)">
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
-										</button>
+											</button>
+										</div>
 									</div>
 
 								</div>
@@ -200,7 +200,7 @@
   		<div v-if="page == 'customization'" class="padded container">
   			<h2> Customization </h2>
 
-  			<div class="third">
+  			<div v-if="logged_in" class="third">
 	  			<div class="container custom_div">
 			      <label class="quarter left custom_label">Board Type</label>
 			      <div class="half">
@@ -288,8 +288,12 @@
 			    <h5 v-if="just_added_board"> Board Saved!</h5>
 			  </div>
 
-			  <div class="twothirds">
+			  <div v-if="logged_in" class="twothirds">
 			  	<img v-bind:src="custom_board_url" class="" height="400px" width="200px"></img>
+			  </div>
+
+			  <div v-if="!logged_in">
+			  	<h4> Log in to create custom boards</h4>
 			  </div>
 
   		</div>

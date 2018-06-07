@@ -88,7 +88,7 @@ var app = function() {
                 board_type: self.vue.board_type_filter,
             }, function(data)
             {
-                logged_in = data.logged_in;
+                self.vue.logged_in = data.logged_in;
                 self.vue.boards = data.boards;
                 for (var i = 0; i < self.vue.boards.length; i++){
                     var in_cart = false;
