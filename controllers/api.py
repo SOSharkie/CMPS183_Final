@@ -16,6 +16,7 @@ def get_boards():
     for r in rows:
         board = dict(
             id = r.id,
+            created_by = r.created_by,
             image_url = r.image_url,
             board_price = r.board_price,
             board_type=r.board_type,
@@ -97,3 +98,6 @@ def purchase():
         logger.info("%r" % traceback.format_exc())
         return "nok"
     return "ok"
+
+def get_email():
+	return auth.user.email

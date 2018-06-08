@@ -109,6 +109,7 @@ var app = function() {
                         );
                     }
                 }
+                //console.log(self.vue.boards);
             });
     };
 
@@ -155,6 +156,7 @@ var app = function() {
                         self.vue.just_added_board = false;
                     }, 5000)
                 }, 2000);
+                self.get_boards();
             }
         );
     };
@@ -258,6 +260,13 @@ var app = function() {
         );
     };
 
+    self.get_email = function(){
+        $.get(get_email_url,
+            {}, function(data){
+                self.vue.email = data;
+            });
+    }
+
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
@@ -265,6 +274,7 @@ var app = function() {
         data: {
             page: 'homepage',
             logged_in: false,
+            email: null,
             img_url: null,
             boards: [],
             cart: [],
@@ -302,7 +312,7 @@ var app = function() {
 
     });
 
-    //self.add_board();
+    self.get_email();
     self.get_boards();
     return self;
 };

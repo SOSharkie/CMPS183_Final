@@ -139,3 +139,8 @@ success!
 timestamp: 2018-06-07T11:59:27.541097
 ALTER TABLE "boards" ADD "in_cart" CHAR(1);
 success!
+timestamp: 2018-06-07T16:48:08.401207
+ALTER TABLE "boards" ADD "created_by" CHAR(512);
+success!
+success!
+success!

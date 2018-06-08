@@ -9,6 +9,7 @@
 	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 	var toggle_cart_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 	var purchase_url = "{{=URL('api', 'purchase', hmac_key=session.hmac_key)}}";
+	var get_email_url = "{{=URL('api', 'get_email', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -137,9 +138,10 @@
 									<li><a>Price</a>
 										<ul>
 											<li v-on:click="set_price_filter(0, 2500)"><a> All</a></li>
-											<li v-on:click="set_price_filter(0, 100)"><a>< $100</a></li>
-											<li v-on:click="set_price_filter(100, 500)"><a>$100-$500</a></li>
-											<li v-on:click="set_price_filter(500, 2500)"><a>> $500</a></li>
+											<li v-on:click="set_price_filter(0, 200)"><a>< $200</a></li>
+											<li v-on:click="set_price_filter(200, 400)"><a>$200-$400</a></li>
+											<li v-on:click="set_price_filter(400, 600)"><a>$400-$600</a></li>
+											<li v-on:click="set_price_filter(600, 2500)"><a>> $600</a></li>
 										</ul>
 									</li>
 									<li><a>Board Type</a>
@@ -187,6 +189,9 @@
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
 											</button>
+											<button class="btn red rounded" v-if="logged_in & email == board.created_by" v-on:click="delete_board(index)">
+												<i class="fa fa-trash"></i>
+											</button>
 										</div>
 									</div>
 
@@ -233,7 +238,6 @@
 			      <div class="half">
 			        <select class="fill custom_selection" v-model="board_color" v-on:change="update_board_options()">
 			        	<option>White</option>
-			        	<option>Grey</option>
 			        	<option>Black</option>
 			          <option>Red</option>
 			          <option>Orange</option>
