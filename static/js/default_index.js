@@ -88,6 +88,7 @@ var app = function() {
                 board_type: self.vue.board_type_filter,
             }, function(data)
             {
+                console.log("board data from api: ", data.boards);
                 self.vue.logged_in = data.logged_in;
                 self.vue.boards = data.boards;
                 self.vue.boards.sort(function(a, b){return a.board_price - b.board_price;});
@@ -112,6 +113,7 @@ var app = function() {
                 if (self.vue.logged_in){
                     self.get_email();
                 }
+                console.log("board data after api: ", self.vue.boards);
             });
     };
 
@@ -167,6 +169,15 @@ var app = function() {
         $.post(delete_board_url,
             { board_id: self.vue.boards[board_idx].id },
             function () {
+                if(self.vue.boards[board_idx].in_cart){
+                    var found_idx = 0;
+                    for (var i = 0; i < self.vue.cart.length; i++) {
+                        if (self.vue.cart[i].id === self.vue.boards[board_idx].id) {
+                            found_idx = i;
+                        }
+                    }
+                    self.vue.cart.splice(found_idx, 1);
+                }
                 self.vue.boards.splice(board_idx, 1);
             }
         );
