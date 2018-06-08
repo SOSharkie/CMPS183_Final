@@ -88,7 +88,6 @@ var app = function() {
                 board_type: self.vue.board_type_filter,
             }, function(data)
             {
-                console.log("board data from api: ", data.boards);
                 self.vue.logged_in = data.logged_in;
                 self.vue.boards = data.boards;
                 self.vue.boards.sort(function(a, b){return a.board_price - b.board_price;});
@@ -113,7 +112,6 @@ var app = function() {
                 if (self.vue.logged_in){
                     self.get_email();
                 }
-                console.log("board data after api: ", self.vue.boards);
             });
     };
 
@@ -177,6 +175,7 @@ var app = function() {
                         }
                     }
                     self.vue.cart.splice(found_idx, 1);
+                    self.vue.cart_total -= self.vue.boards[board_idx].board_price;
                 }
                 self.vue.boards.splice(board_idx, 1);
             }
@@ -198,8 +197,10 @@ var app = function() {
         var board = self.vue.boards[board_idx];
         board.in_cart = !board.in_cart;
         $.post(toggle_cart_url,
-            { in_cart: board.in_cart, },
-            function (data) {
+            { 
+                in_cart: board.in_cart,
+                board_id: board.id,
+            }, function (data) {
                 self.vue.boards.sort(function(a, b){return null;});
                 if(board.in_cart){
                     self.vue.cart.push(board);
@@ -212,6 +213,7 @@ var app = function() {
                         }
                     }
                     self.vue.cart.splice(found_idx, 1);
+                    self.vue.cart_total -= board.board_price;
                 }
             }
         );
@@ -221,8 +223,10 @@ var app = function() {
         var board = self.vue.cart[board_idx];
         board.in_cart = !board.in_cart;
         $.post(toggle_cart_url,
-            { in_cart: board.in_cart, },
-            function (data) {
+            { 
+                in_cart: board.in_cart, 
+                board_id: board.id,
+            }, function (data) {
                 var found_idx = 0;
                     for (var i = 0; i < self.vue.cart.length; i++) {
                         if (self.vue.cart[i].id === board.id) {

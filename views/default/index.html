@@ -7,7 +7,7 @@
 	var add_board_url = "{{=URL('api', 'add_board', user_signature=True)}}";
 	var get_boards_url = "{{=URL('api', 'get_boards', user_signature=True)}}";
 	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
-	var toggle_cart_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
+	var toggle_cart_url = "{{=URL('api', 'toggle_cart', user_signature=True)}}";
 	var purchase_url = "{{=URL('api', 'purchase', hmac_key=session.hmac_key)}}";
 	var get_email_url = "{{=URL('api', 'get_email', user_signature=True)}}";
 </script>
@@ -274,7 +274,7 @@
 			    </div>
 
 			    <div class="container custom_div">
-			      <label class="quarter left custom_label">Thicness (in)</label>
+			      <label class="quarter left custom_label">Thickness (in)</label>
 			      <div class="half">
 			        <input min="0" max="3" step=".1" v-model="board_thickness" type="number" class="custom_selection" 
 			        v-on:change="update_board_options()">
