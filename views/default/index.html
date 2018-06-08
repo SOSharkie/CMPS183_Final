@@ -36,7 +36,7 @@
 	  			</li>
 	  		</ul>
 
-	  		<ul class="menu right">
+	  		<ul class="menu right" v-if="logged_in">
 <!-- 	  			<li>
 	  				<button class="btn rounded"><a href="/final/default/user" class="login_button"></a>Login</button>
 	  			</li>
@@ -185,7 +185,7 @@
 										<p class="description_text">Thickness: ${board.board_thickness}in.</p>
 										<p class="description_text">Volume: ${board.board_volume}L</p>
 										<div class="board_price"> $${board.board_price} 
-											<button class="btn rounded" v-on:click="toggle_cart(index)">
+											<button class="btn rounded" v-on:click="toggle_cart(index)" v-if="logged_in">
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
 											</button>
@@ -323,8 +323,10 @@
 			  	<div class="filter_container">
 
 						<div v-if="cart.length > 0" class="total_price">
-            	Your total price: $${cart_total}
-            	<button class="btn blue" v-on:click="pay()"><i class="fa fa-lg fa-credit-card"></i> Pay</button>
+            	<label>Cart Total: $${cart_total}</label>
+            	<button class="btn blue rounded pay_button" v-on:click="pay()">
+            		<i class="fa fa-lg fa-credit-card"></i> Pay
+            	</button>
           	</div>
 
 					</div>
@@ -336,14 +338,14 @@
 								<div>
 									<!-- The front of the surfboard displays -->
 									<div class="aquamarine rounded">
-										<span> ${board.board_type} </span>
+										<div class="board_type"> ${board.board_type} </div>
 										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
 										<div class="board_price"> $${board.board_price}</div>
 									</div>
 
 									<!-- The back of the surfboard displays -->
 									<div class="navy rounded board_description">
-										<span> ${board.board_type} </span>
+										<div class="board_type"> ${board.board_type} </div>
 										<p class="description_text">Tail: ${board.board_tail_type}</p>
 										<p class="description_text">Color: ${board.board_color}</p>
 										<p class="description_text">Fins: ${board.num_of_fins}</p>

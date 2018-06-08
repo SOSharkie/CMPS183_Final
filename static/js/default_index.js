@@ -109,7 +109,9 @@ var app = function() {
                         );
                     }
                 }
-                //console.log(self.vue.boards);
+                if (self.vue.logged_in){
+                    self.get_email();
+                }
             });
     };
 
@@ -312,7 +314,6 @@ var app = function() {
 
     });
 
-    self.get_email();
     self.get_boards();
     return self;
 };
