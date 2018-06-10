@@ -99,5 +99,5 @@ def purchase():
         return "nok"
     return "ok"
 
-def get_email():
-	return auth.user.email
+def get_user_id():
+	return auth.user.id

@@ -20,7 +20,7 @@
 }
 
 .homepage_background {
-	height: 600px;
+	height: 800px;
 	background:url(../images/wave2.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -29,17 +29,20 @@
 }
 
 .homepage_card {
-	width: 400px; 
+	width: 95%; 
 	height: 200px;
-	margin-top: 10px;
-	margin-left: 15px;
-	margin-right: 35px;
+	margin-top: 30px;
+	padding-left: 10px !important;
 }
 
 .homepage_board_image {
 	width: 420px;
 	height: 140px;
 	margin-top: 10px;
+}
+
+.homepage_logo {
+	padding-top: 20px;
 }
 
 /***************************************** Database ******************************************/
@@ -60,10 +63,11 @@
 }
 
 .image_container {
-	border: 2px outset gray !important;
-	border-radius: 5px;
 	padding: 10px !important;
-	background-color: lightgray;
+}
+
+.inner_image_container {
+	border-left: 2px solid #26a69a !important;
 }
 
 .board_type {
@@ -71,17 +75,14 @@
 }
 
 .board_price {
-	/*margin-left: 20px !important;
-	margin-right: 5px !important;*/
-	/*width: 100px !important;*/
 	text-align: center;
 }
 
 .database_card {
 	text-align: center;
-	width: 210px !important; 
+	width: 190px !important; 
 	height: 290px !important;
-	margin-right: 10px !important;
+	margin-right: 15px !important;
 }
 
 
@@ -97,7 +98,7 @@
 
 .description_text {
 	padding-left: 5px;
-	padding-top: 5px;
+	padding-top: 3px;
 }
 
 .aquamarine {
@@ -105,6 +106,11 @@
 }
 
 /*************************************** Customization ***************************************/
+
+.page_content {
+	border-top: 2px solid #26a69a !important;
+	padding-top: 25px !important;
+}
 
 .custom_label {
 	width: 130px;
@@ -115,7 +121,7 @@
 }
 
 .custom_selection {
-	border: 1px solid black !important;
+	border-bottom: 1px solid gray !important;
 }
 
 .save_bar {
@@ -136,17 +142,5 @@
 
 h2 {
 	margin-top: 10px;
+	color: #1c877d;
 }
-
-
-.colorful {
- 	color: #bb8833;
-}
-
-/*.rotate90 {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-}*/

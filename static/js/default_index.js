@@ -110,7 +110,7 @@ var app = function() {
                     }
                 }
                 if (self.vue.logged_in){
-                    self.get_email();
+                    self.get_user_id();
                 }
             });
     };
@@ -201,7 +201,7 @@ var app = function() {
                 in_cart: board.in_cart,
                 board_id: board.id,
             }, function (data) {
-                self.vue.boards.sort(function(a, b){return null;});
+                self.vue.boards.sort(function(a, b){return a.board_price - b.board_price;});
                 if(board.in_cart){
                     self.vue.cart.push(board);
                     self.vue.cart_total += board.board_price;
@@ -277,10 +277,10 @@ var app = function() {
         );
     };
 
-    self.get_email = function(){
-        $.get(get_email_url,
+    self.get_user_id = function(){
+        $.get(get_user_url,
             {}, function(data){
-                self.vue.email = data;
+                self.vue.user_id = data;
             });
     }
 
@@ -291,7 +291,7 @@ var app = function() {
         data: {
             page: 'homepage',
             logged_in: false,
-            email: null,
+            user_id: null,
             img_url: null,
             boards: [],
             cart: [],

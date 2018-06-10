@@ -9,7 +9,7 @@
 	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 	var toggle_cart_url = "{{=URL('api', 'toggle_cart', user_signature=True)}}";
 	var purchase_url = "{{=URL('api', 'purchase', hmac_key=session.hmac_key)}}";
-	var get_email_url = "{{=URL('api', 'get_email', user_signature=True)}}";
+	var get_user_url = "{{=URL('api', 'get_user_id', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -37,85 +37,88 @@
 	  		</ul>
 
 	  		<ul class="menu right" v-if="logged_in">
-<!-- 	  			<li>
-	  				<button class="btn rounded"><a href="/final/default/user" class="login_button"></a>Login</button>
-	  			</li>
-	  			<li> </li>-->
 	  			<button v-if="page != 'cart'" v-on:click="change_page('cart')" class="btn rounded"> 
 	             	Cart <i class="fa fa-shopping-cart"></i> 
-				</button>
-				<button v-if="page == 'cart'" v-on:click="change_page('database')" class="btn rounded"> 
-					Shop
-				</button>
+					</button>
+					<button v-if="page == 'cart'" v-on:click="change_page('database')" class="btn rounded"> 
+						Shop
+					</button>
 	  		</ul>
   		</div>
 
   		<!-- ********************************************* Homepage ********************************************* -->
   		<div v-if="page == 'homepage'">
-  			<div class="fill center homepage_background ">
+  			<div class="fill center homepage_background">
 
         	<h1 class="homepage_title">Boardophiles</h1>
         	<h4 class="homepage_title"> Customizable Surfboard Shop</h4>
 
         	<div class="container">
+	        	<div class="third padded">
 
-	        	<div class="card homepage_card left third">
-				      <div>
-				        <div class="blue padded rounded">
-				          We have the boards!
-				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
-				        </div>
-				        <div class="navy padded rounded">
-				          High performance and stylish! 
-				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
-				        </div>
-				      </div>
-				    </div>
+		        	<div class="card homepage_card">
+					      <div>
+					        <div class="blue padded rounded">
+					          We have the boards!
+					          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
+					        </div>
+					        <div class="navy padded rounded">
+					          High performance and stylish! 
+					          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
+					        </div>
+					      </div>
+					    </div>
 
-				    <div class="card homepage_card right third">
-				      <div>
-				        <div class="blue padded rounded">
-				          Search our database presets...
-				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
-				        </div>
-				        <div class="navy padded rounded">
-				          Or create your own custom board! 
-				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
-				        </div>
-				      </div>
-				    </div>
+					    <div class="card homepage_card">
+					      <div>
+					        <div class="blue padded rounded">
+					          Search our database presets...
+					          <img src="../static/images/surfboard1.jpg" class="homepage_board_image">
+					        </div>
+					        <div class="navy padded rounded">
+					          Or create your own custom board! 
+					          <img src="../static/images/surfboard1.jpg" class="homepage_board_image">
+					        </div>
+					      </div>
+					    </div>
 
-				  </div>
+					  </div>
 
-				  <div class="container">
+					  <div class="third padded">
+					    <img src="../static/images/logo.jpg" class="homepage_logo">
+					   </div>
 
-	        	<div class="card homepage_card left third">
-				      <div>
-				        <div class="teal padded rounded">
-				          Unbeatable prices!
-				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
-				        </div>
-				        <div class="aqua padded rounded">
-				          Easy online payments! 
-				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
-				        </div>
-				      </div>
-				    </div>
+					  <div class="third padded">
 
-				    <div class="card homepage_card right third">
-				      <div>
-				        <div class="teal padded rounded">
-				          Recommended by pro surfers!
-				          <img src="../static/images/surfboard_top.jpg" class="homepage_board_image">
-				        </div>
-				        <div class="aqua padded rounded">
-				          Including Aaron Justesen! 
-				          <img src="../static/images/surfboard_bottom.jpg" class="homepage_board_image">
-				        </div>
-				      </div>
-				    </div>
+		        	<div class="card homepage_card">
+					      <div>
+					        <div class="teal padded rounded">
+					          Unbeatable prices!
+					          <img src="../static/images/surfboard2.jpg" class="homepage_board_image">
+					        </div>
+					        <div class="aqua padded rounded">
+					          Easy online payments! 
+					          <img src="../static/images/surfboard2.jpg" class="homepage_board_image">
+					        </div>
+					      </div>
+					    </div>
 
-				  </div>
+					    <div class="card homepage_card">
+					      <div>
+					        <div class="teal padded rounded">
+					          Recommended by pro surfers!
+					          <img src="../static/images/surfboard4.jpg" class="homepage_board_image">
+					        </div>
+					        <div class="aqua padded rounded">
+					          Including Aaron Justesen! 
+					          <img src="../static/images/surfboard4.jpg" class="homepage_board_image">
+					        </div>
+					      </div>
+					    </div>
+
+					  </div>
+
+					</div>
 
       	</div>
   		</div>
@@ -127,10 +130,9 @@
 
 				<div class="container">
 
-					<div class="filter_container">
+					<div class="filter_container page_content">
 
-						<!-- button to delete the last board in the array -->
-						<!-- <button v-on:click="delete_board(boards.length-1)"> Delete </button> -->
+						<!-- <button v-on:click="delete_board(boards.length-1)"> Delete </button> --> 
 
 						<ul class="menu">
 							<li><h2 class="btn rounded filter">Filter</h2>
@@ -163,20 +165,21 @@
 					</div>
 
 					<!-- Code to display the images -->
-					<div class="image_container threequarters">
-						<ul class="container">
+					<div class="image_container threequarters page_content">
+						<ul class="container inner_image_container">
 							<li v-for="(board, index) in boards" class="card database_card lifted padded quarter rounded">
 								<div>
 									<!-- The front of the surfboard displays -->
-									<div class="aquamarine rounded">
+									<div class="rounded">
 										<div class="board_type"> ${board.board_type} </div>
 										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
 										<div class="board_price"> $${board.board_price} <i v-if="board.in_cart" class="fa fa-check"></i></div>
 									</div>
 
 									<!-- The back of the surfboard displays -->
-									<div class="navy rounded board_description">
+									<div class="rounded board_description">
 										<div class="board_type"> ${board.board_type} </div>
+										<p class="description_text">By: ${board.created_by.first_name}</p>
 										<p class="description_text">Tail: ${board.board_tail_type}</p>
 										<p class="description_text">Color: ${board.board_color}</p>
 										<p class="description_text">Fins: ${board.num_of_fins}</p>
@@ -189,7 +192,8 @@
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
 											</button>
-											<button class="btn red rounded" v-if="logged_in & email == board.created_by" v-on:click="delete_board(index)">
+											<button class="btn red rounded" v-if="logged_in & user_id == board.created_by.id" 
+												v-on:click="delete_board(index)">
 												<i class="fa fa-trash"></i>
 											</button>
 										</div>
@@ -209,7 +213,7 @@
   		<div v-if="page == 'customization'" class="padded container">
   			<h2> Customization </h2>
 
-  			<div v-if="logged_in" class="third">
+  			<div v-if="logged_in" class="third page_content">
 	  			<div class="container custom_div">
 			      <label class="quarter left custom_label">Board Type</label>
 			      <div class="half">
@@ -294,14 +298,19 @@
 			    <button v-if="saving_board" class="btn rounded"> Saving Board...</button>
 			    <div v-if="saving_board" class="progress fill save_bar"><div class="indeterminate"></div></div>
 			    <h5 v-if="just_added_board"> Board Saved!</h5>
+
 			  </div>
 
-			  <div v-if="logged_in" class="twothirds">
+			  <div v-if="logged_in" class="third page_content">
 			  	<img v-bind:src="custom_board_url" class="" height="400px" width="200px"></img>
 			  </div>
 
-			  <div v-if="!logged_in">
+			  <div v-if="!logged_in" class="twothirds page_content">
 			  	<h4> Log in to create custom boards</h4>
+			  </div>
+
+			  <div class="quarter page_content">
+			  	<img src="../static/images/logo_text.jpg" class="" height="400px" width="200px"></img>
 			  </div>
 
   		</div>
@@ -309,9 +318,11 @@
   		<!-- ******************************************** About Page ******************************************** -->
   		<div v-if="page == 'about'" class="padded">
   			<h2> About </h2>
-  			<p> This website was created for the University of California CMPS 183 final.</p>
-  			<p> By Sean Odnert and Mark Hiserodt.</p>
-  			<p> With help from Aaron Justesen</p>
+  			<div class="half page_content">
+	  			<p> This website was created for the University of California CMPS 183 final.</p>
+	  			<p> By Sean Odnert and Mark Hiserodt.</p>
+	  			<p> With help from Aaron Justesen</p>
+  			</div>
   		</div>
 
   		<!-- ******************************************** Cart Page ******************************************** -->
@@ -320,7 +331,7 @@
 			  
 			  <div class="container">
 
-			  	<div class="filter_container">
+			  	<div class="filter_container page_content">
 
 						<div v-if="cart.length > 0" class="total_price">
             	<label>Cart Total: $${cart_total}</label>
@@ -332,19 +343,19 @@
 					</div>
 
 					<!-- Code to display the images -->
-					<div class="image_container threequarters">
-						<ul class="container">
+					<div class="image_container threequarters page_content">
+						<ul class="container inner_image_container">
 							<li v-for="(board, index) in cart" class="card database_card lifted padded quarter rounded">
 								<div>
 									<!-- The front of the surfboard displays -->
-									<div class="aquamarine rounded">
+									<div class="rounded">
 										<div class="board_type"> ${board.board_type} </div>
 										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
 										<div class="board_price"> $${board.board_price}</div>
 									</div>
 
 									<!-- The back of the surfboard displays -->
-									<div class="navy rounded board_description">
+									<div class="rounded board_description">
 										<div class="board_type"> ${board.board_type} </div>
 										<p class="description_text">Tail: ${board.board_tail_type}</p>
 										<p class="description_text">Color: ${board.board_color}</p>
