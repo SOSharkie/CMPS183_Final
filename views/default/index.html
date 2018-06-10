@@ -160,8 +160,28 @@
 								</ul>
 							</li>
 						</ul>
+
+						<!-- <div>
+							<h6>Price:</h6>
+								<ul>
+									<li><input type="checkbox"> All</input></li>
+									<li><input type="checkbox"> < $400</input></li>
+									<li><input type="checkbox"> $400-$500</input></li>
+									<li><input type="checkbox"> $500-600</input></li>
+									<li><input type="checkbox"> > $600</input></li>
+								</ul>
+							<h6>Board Type:</h6>
+								<ul>
+									<li><input type="checkbox"> All</input></li>
+									<li><input type="checkbox"> Shortboard</input></li>
+									<li><input type="checkbox"> Hybrid</input></li>
+									<li><input type="checkbox"> Longboard</input></li>
+								</ul>
+						</div> -->
+
+
 						<div class="active_filters">
-							<h5>Active Filters:</h5>
+							<h6>Active Filters:</h6>
 							<p>Price: $${min_price} to $${max_price}</p>
 							<p>Type: ${board_type_filter}</p>
 						</div>
@@ -195,7 +215,7 @@
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
 											</button>
-											<button class="btn red rounded" v-if="board.created_by_id == current_user.id" 
+											<button class="btn red rounded" v-if="logged_in && board.created_by_id == current_user.id" 
 												v-on:click="delete_board(index)">
 												<i class="fa fa-trash"></i>
 											</button>
@@ -281,7 +301,7 @@
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
 											</button>
-											<button class="btn red rounded" v-if="board.created_by_id == current_user.id" 
+											<button class="btn red rounded" v-if="logged_in && board.created_by_id == current_user.id" 
 												v-on:click="delete_board(index)">
 												<i class="fa fa-trash"></i>
 											</button>
