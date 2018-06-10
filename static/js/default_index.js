@@ -75,7 +75,6 @@ var app = function() {
         //volume
         price += (self.vue.board_volume * 2);
 
-        //console.log(board_url);
         self.vue.custom_board_url = board_url;
         self.vue.board_price = price;
     }
@@ -86,11 +85,10 @@ var app = function() {
                 min: self.vue.min_price,
                 max: self.vue.max_price,
                 board_type: self.vue.board_type_filter,
-                creator_id: -1,
+                creator_id: self.vue.board_creator_filter,
             }, function(data) {
                 self.vue.logged_in = data.logged_in;
                 self.vue.boards = data.boards;
-                console.log(self.vue.boards);
                 self.vue.boards.sort(function(a, b){return a.board_price - b.board_price;});
                 for (var i = 0; i < self.vue.boards.length; i++){
                     var in_cart = false;
@@ -117,13 +115,13 @@ var app = function() {
     self.change_page = function(new_page) {
         self.vue.page = new_page;
         self.update_board_options();
-        self.set_board_creator_filter(-1);
-        if (new_page == 'collection'){
+        if (new_page == 'database'){
+            self.set_board_creator_filter(-1);
+        }if (new_page == 'collection'){
             if (self.vue.logged_in){
                 self.set_board_creator_filter(self.vue.current_user.id);
             }
-        }
-        if (new_page == 'cart') {
+        } else if (new_page == 'cart') {
             self.stripe_instance = StripeCheckout.configure({
             key: 'pk_test_kN2E9pbA1kN5CzoWMkQX8C4g',    //put your own publishable key here
             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
@@ -202,7 +200,7 @@ var app = function() {
     };
 
     self.set_board_creator_filter = function(creator_id){
-        self.board_creator_filter = creator_id;
+        self.vue.board_creator_filter = creator_id;
         self.get_boards();
     };
 

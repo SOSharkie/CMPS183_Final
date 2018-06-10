@@ -8,14 +8,18 @@ if session.hmac_key is None:
 
 def get_boards():
     boards = []
-    #rows = db().select(db.boards.ALL)
+    creator_id = int(request.vars.creator_id) if request.vars.creator_id is not None else 0
     if request.vars.board_type != 'All':
         rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max) & 
         (db.boards.board_type == request.vars.board_type)).select()
+        if creator_id != -1:
+        	rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max) & 
+        	(db.boards.board_type == request.vars.board_type) & (db.boards.created_by_id == creator_id)).select()
     else:
         rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max)).select()
-    # if request.vars.creator_id != -1:
-    # 	rows = db(db.boards.created_by_id == request.vars.creator_id).select()
+    	if creator_id != -1:
+    		rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max) &
+    			(db.boards.created_by_id == creator_id)).select()
     for r in rows:
         board = dict(
             id = r.id,
