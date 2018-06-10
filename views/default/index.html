@@ -9,7 +9,7 @@
 	var delete_board_url = "{{=URL('api', 'delete_board', user_signature=True)}}";
 	var toggle_cart_url = "{{=URL('api', 'toggle_cart', user_signature=True)}}";
 	var purchase_url = "{{=URL('api', 'purchase', hmac_key=session.hmac_key)}}";
-	var get_user_url = "{{=URL('api', 'get_user_id', user_signature=True)}}";
+	var get_users_url = "{{=URL('api', 'get_users', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -26,7 +26,10 @@
 	  				<a v-on:click="change_page('homepage')"> Homepage </a>
 	  			</li>
 	  			<li>
-	  				<a v-on:click="change_page('database')"> Surfboards </a>
+	  				<a v-on:click="change_page('database')"> Database </a>
+	  			</li>
+	  			<li>
+	  				<a v-on:click="change_page('collection')"> Your Boards </a>
 	  			</li>
 	  			<li>
 	  				<a v-on:click="change_page('customization')"> Customization </a>
@@ -126,7 +129,7 @@
   		<!-- ******************************************* Database Page ******************************************* -->
   		<div v-if="page == 'database'" class="padded">
 
-				<h2> Surfboard Collection </h2>
+				<h2> Surfboard Database </h2>
 
 				<div class="container">
 
@@ -179,7 +182,7 @@
 									<!-- The back of the surfboard displays -->
 									<div class="rounded board_description">
 										<div class="board_type"> ${board.board_type} </div>
-										<p class="description_text">By: ${board.created_by.first_name}</p>
+										<p class="description_text">By: ${board.created_by_name}</p>
 										<p class="description_text">Tail: ${board.board_tail_type}</p>
 										<p class="description_text">Color: ${board.board_color}</p>
 										<p class="description_text">Fins: ${board.num_of_fins}</p>
@@ -192,7 +195,7 @@
 												<i v-if="board.in_cart" class="fa fa-check"></i>
 												<i class="fa fa-shopping-cart"></i>
 											</button>
-											<button class="btn red rounded" v-if="logged_in & user_id == board.created_by.id" 
+											<button class="btn red rounded" v-if="board.created_by_id == current_user.id" 
 												v-on:click="delete_board(index)">
 												<i class="fa fa-trash"></i>
 											</button>
@@ -208,6 +211,93 @@
 				</div>
 			 
   		</div>
+
+  		<!-- ******************************************* Your Collection Page ******************************************* -->
+  		<div v-if="page == 'collection'" class="padded">
+
+				<h2> Your Collection </h2>
+
+				<div class="container">
+
+					<div class="filter_container page_content">
+
+						<!-- <button v-on:click="delete_board(boards.length-1)"> Delete </button> --> 
+
+						<ul class="menu">
+							<li><h2 class="btn rounded filter">Filter</h2>
+								<ul>
+									<li><a>Price</a>
+										<ul>
+											<li v-on:click="set_price_filter(0, 2500)"><a> All</a></li>
+											<li v-on:click="set_price_filter(0, 200)"><a>< $200</a></li>
+											<li v-on:click="set_price_filter(200, 400)"><a>$200-$400</a></li>
+											<li v-on:click="set_price_filter(400, 600)"><a>$400-$600</a></li>
+											<li v-on:click="set_price_filter(600, 2500)"><a>> $600</a></li>
+										</ul>
+									</li>
+									<li><a>Board Type</a>
+										<ul>
+											<li v-on:click="set_board_type_filter('All')"><a> All</a></li>
+											<li v-on:click="set_board_type_filter('Longboard')"><a>Longboard</a></li>
+											<li v-on:click="set_board_type_filter('Shortboard')"><a>Shortboard</a></li>
+											<li v-on:click="set_board_type_filter('Hybrid')"><a>Hybrid</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div class="active_filters">
+							<h5>Active Filters:</h5>
+							<p>Price: $${min_price} to $${max_price}</p>
+							<p>Type: ${board_type_filter}</p>
+						</div>
+					</div>
+
+					<!-- Code to display the images -->
+					<div class="image_container threequarters page_content">
+						<ul class="container inner_image_container">
+							<li v-for="(board, index) in boards" class="card database_card lifted padded quarter rounded">
+								<div>
+									<!-- The front of the surfboard displays -->
+									<div class="rounded">
+										<div class="board_type"> ${board.board_type} </div>
+										<img v-bind:src="board.image_url" class="padded database_board_image"></img>
+										<div class="board_price"> $${board.board_price} <i v-if="board.in_cart" class="fa fa-check"></i></div>
+									</div>
+
+									<!-- The back of the surfboard displays -->
+									<div class="rounded board_description">
+										<div class="board_type"> ${board.board_type} </div>
+										<p class="description_text">By: ${board.created_by_name}</p>
+										<p class="description_text">Tail: ${board.board_tail_type}</p>
+										<p class="description_text">Color: ${board.board_color}</p>
+										<p class="description_text">Fins: ${board.num_of_fins}</p>
+										<p class="description_text">Length: ${board.board_length}ft.</p>
+										<p class="description_text">Width: ${board.board_width}in.</p>
+										<p class="description_text">Thickness: ${board.board_thickness}in.</p>
+										<p class="description_text">Volume: ${board.board_volume}L</p>
+										<div class="board_price"> $${board.board_price} 
+											<button class="btn rounded" v-on:click="toggle_cart(index)" v-if="logged_in">
+												<i v-if="board.in_cart" class="fa fa-check"></i>
+												<i class="fa fa-shopping-cart"></i>
+											</button>
+											<button class="btn red rounded" v-if="board.created_by_id == current_user.id" 
+												v-on:click="delete_board(index)">
+												<i class="fa fa-trash"></i>
+											</button>
+										</div>
+									</div>
+
+								</div>
+							</li>
+						</ul>
+						<h2 v-if="boards.length == 0"> No boards available </h2>
+					</div>
+
+				</div>
+			 
+  		</div>
+
 		
   		<!-- **************************************** Customization Page **************************************** -->
   		<div v-if="page == 'customization'" class="padded container">
@@ -357,6 +447,7 @@
 									<!-- The back of the surfboard displays -->
 									<div class="rounded board_description">
 										<div class="board_type"> ${board.board_type} </div>
+										<p class="description_text">By: ${board.created_by_name}</p>
 										<p class="description_text">Tail: ${board.board_tail_type}</p>
 										<p class="description_text">Color: ${board.board_color}</p>
 										<p class="description_text">Fins: ${board.num_of_fins}</p>

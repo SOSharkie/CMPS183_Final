@@ -10,13 +10,17 @@ def get_boards():
     boards = []
     #rows = db().select(db.boards.ALL)
     if request.vars.board_type != 'All':
-        rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max) & (db.boards.board_type == request.vars.board_type)).select()
+        rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max) & 
+        (db.boards.board_type == request.vars.board_type)).select()
     else:
         rows = db((db.boards.board_price >= request.vars.min) & (db.boards.board_price <= request.vars.max)).select()
+    # if request.vars.creator_id != -1:
+    # 	rows = db(db.boards.created_by_id == request.vars.creator_id).select()
     for r in rows:
         board = dict(
             id = r.id,
-            created_by = r.created_by,
+            created_by_id = r.created_by_id,
+            created_by_name = r.created_by_name,
             image_url = r.image_url,
             board_price = r.board_price,
             board_type=r.board_type,
@@ -38,6 +42,8 @@ def get_boards():
 
 def add_board():
     s_id = db.boards.insert(
+    	created_by_id=request.vars.created_by_id,
+    	created_by_name=request.vars.created_by_name,
         image_url=request.vars.image_url,
         board_price=request.vars.board_price,
         board_type=request.vars.board_type,
@@ -53,6 +59,8 @@ def add_board():
     return response.json(dict(boards=dict( 
         id = s_id,
         image_url=s.image_url,
+        created_by_id=s.created_by_id,
+    	created_by_name=s.created_by_name,
         board_price=s.board_price,
         board_type=s.board_type,
         board_tail_type=s.board_tail_type,
@@ -99,5 +107,21 @@ def purchase():
         return "nok"
     return "ok"
 
-def get_user_id():
-	return auth.user.id
+def get_users():
+	current_user = None
+	logged_in = auth.user is not None
+	if logged_in:
+		current_user = auth.user
+	users = []
+	for r in db(db.auth_user.id > 0).select():
+		t = dict(
+			id = r.id,
+			first_name = r.first_name,
+			last_name = r.last_name,
+			email = r.email
+		)
+		users.append(t)
+	return response.json(dict(
+		users=users,
+		current_user=current_user
+	))

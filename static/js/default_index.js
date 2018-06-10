@@ -86,10 +86,11 @@ var app = function() {
                 min: self.vue.min_price,
                 max: self.vue.max_price,
                 board_type: self.vue.board_type_filter,
-            }, function(data)
-            {
+                creator_id: -1,
+            }, function(data) {
                 self.vue.logged_in = data.logged_in;
                 self.vue.boards = data.boards;
+                console.log(self.vue.boards);
                 self.vue.boards.sort(function(a, b){return a.board_price - b.board_price;});
                 for (var i = 0; i < self.vue.boards.length; i++){
                     var in_cart = false;
@@ -109,15 +110,19 @@ var app = function() {
                         );
                     }
                 }
-                if (self.vue.logged_in){
-                    self.get_user_id();
-                }
+                self.get_users();
             });
     };
 
     self.change_page = function(new_page) {
         self.vue.page = new_page;
         self.update_board_options();
+        self.set_board_creator_filter(-1);
+        if (new_page == 'collection'){
+            if (self.vue.logged_in){
+                self.set_board_creator_filter(self.vue.current_user.id);
+            }
+        }
         if (new_page == 'cart') {
             self.stripe_instance = StripeCheckout.configure({
             key: 'pk_test_kN2E9pbA1kN5CzoWMkQX8C4g',    //put your own publishable key here
@@ -135,8 +140,11 @@ var app = function() {
 
     self.add_board = function () {
         self.vue.saving_board = true;
+        var name = self.vue.current_user.first_name + " " + self.vue.current_user.last_name;
         $.post(add_board_url,
             {
+                created_by_id: self.vue.current_user.id,
+                created_by_name: name, 
                 image_url: self.vue.custom_board_url,
                 board_price: self.vue.board_price,
                 board_type: self.vue.board_type,
@@ -190,6 +198,11 @@ var app = function() {
 
     self.set_board_type_filter = function(board_type){
         self.vue.board_type_filter = board_type;
+        self.get_boards();
+    };
+
+    self.set_board_creator_filter = function(creator_id){
+        self.board_creator_filter = creator_id;
         self.get_boards();
     };
 
@@ -277,12 +290,12 @@ var app = function() {
         );
     };
 
-    self.get_user_id = function(){
-        $.get(get_user_url,
-            {}, function(data){
-                self.vue.user_id = data;
-            });
-    }
+    self.get_users = function () {
+        $.getJSON(get_users_url, function (data) {
+            self.vue.users = data.users;
+            self.vue.current_user = data.current_user;
+        })
+    };
 
     self.vue = new Vue({
         el: "#vue-div",
@@ -291,7 +304,8 @@ var app = function() {
         data: {
             page: 'homepage',
             logged_in: false,
-            user_id: null,
+            current_user: null,
+            users: [],
             img_url: null,
             boards: [],
             cart: [],
@@ -310,6 +324,7 @@ var app = function() {
             min_price: 0,
             max_price: 2500,
             board_type_filter: 'All',
+            board_creator_filter: -1,
             saving_board: false,
             just_added_board: false,
             cart_total: 0,
@@ -322,6 +337,7 @@ var app = function() {
             delete_board: self.delete_board,
             set_price_filter: self.set_price_filter,
             set_board_type_filter: self.set_board_type_filter,
+            set_board_creator_filter: self.set_board_creator_filter,
             toggle_cart: self.toggle_cart,
             remove_from_cart: self.remove_from_cart,
             pay: self.pay,

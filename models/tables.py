@@ -11,7 +11,8 @@ import datetime
 
 db.define_table('boards',
                 Field('created_on', 'datetime', default=request.now),
-                Field('created_by', default=auth.user if auth.user is not None else None),
+                Field('created_by_id', default=auth.user.id if auth.user is not None else None),
+				Field('created_by_name', default=auth.user.first_name if auth.user is not None else None),
                 Field('image_url'),
                 Field('board_price', 'float', default=0.0),
                 Field('board_type', 'text'),
