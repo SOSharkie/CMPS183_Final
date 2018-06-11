@@ -18,10 +18,10 @@ var app = function() {
 
         //color
         if (self.vue.board_color == 'White'){
-            price += 20;
+            price += 10;
             board_url += 'white';
         } else if (self.vue.board_color == 'Red'){
-            price += 35;
+            price += 40;
             board_url += 'red';
         } else if (self.vue.board_color == 'Orange') {
             price += 30;
@@ -33,39 +33,36 @@ var app = function() {
             price += 45;
             board_url += 'green';
         } else if (self.vue.board_color == 'Blue') {
-            price += 45;
+            price += 50;
             board_url += 'blue';
         } else if (self.vue.board_color == 'Purple'){
-            price += 50;
+            price += 60;
             board_url += 'purple';
-        } else if (self.vue.board_color == 'Grey'){
-            price += 25;
-            board_url += 'grey';
         } else if (self.vue.board_color == 'Black'){
-            price += 50;
+            price += 60;
             board_url += 'black';
         }
 
         //Board type
         if (self.vue.board_type == 'Shortboard'){
-            price += 200;
+            price += 100;
             board_url += '_shortboard.jpg';
         } else if (self.vue.board_type == 'Hybrid'){
             price += 250;
             board_url += '_shortboard.jpg';
         } else if (self.vue.board_type == 'Longboard'){
-            price += 300;
+            price += 500;
             board_url += '_longboard.jpg';
         }
         //Tail type
         if (self.vue.board_tail_type == 'Square'){
             price += 25;
         } else if (self.vue.board_tail_type == 'Pin'){
-            price += 30;
-        } else if (self.vue.board_tail_type == 'Swallow'){
-            price += 35;
-        } else if (self.vue.board_tail_type == 'Diamond'){
             price += 40;
+        } else if (self.vue.board_tail_type == 'Swallow'){
+            price += 60;
+        } else if (self.vue.board_tail_type == 'Diamond'){
+            price += 80;
         }
 
         //fins
