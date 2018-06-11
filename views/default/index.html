@@ -237,7 +237,11 @@
 
 				<h2> Your Collection </h2>
 
-				<div class="container">
+				<div v-if="!logged_in" class="twothirds page_content">
+			  	<h4> Log in to view your boards</h4>
+			  </div>
+
+				<div class="container" v-if="logged_in">
 
 					<div class="filter_container page_content">
 
